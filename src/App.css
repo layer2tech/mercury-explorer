@@ -1,0 +1,288 @@
+/* 
+  http://meyerweb.com/eric/tools/css/reset/ 
+  v2.0 | 20110126
+  License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(./fonts/KFOkCnqEu92Fr1MmgVxIIzIXKMny.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(./fonts/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./fonts/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./fonts/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(./fonts/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+.App {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  background-color: #121212;
+  padding-bottom: 20px;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-width:500px;
+}
+
+.App .tutorial-page {
+  background-color: #202020;
+}
+.App .container{
+  padding: 0;
+}
+.App .Header {
+  background-color: #0B2B68;
+  box-shadow: none;
+}
+.App .Body,
+.App .wallet-container,
+.App .nav.nav-tabs {
+  background-color: #202020;
+}
+.App .tab-content {
+  background-color: #2D2D2D;
+}
+.App .checkmark {
+  background-color: transparent;
+}
+.App *:not(button), 
+.App .tutorial-page .tutorial-content p,
+.App .tutorial-page .tutorial-content .sub-title,
+.App .coin-status.coin-status-modal .coin-status-title {
+  color: #E7E7E7;
+}
+.App .coin-status-description {
+    color: #666666;
+}
+.App .tutorial-page .tutorial-btns button {
+  background: none;
+}
+.App button.Body-button:not(.blue,.yellow) {
+  background-color: transparent;
+}
+.App .ButtonsPanel .ActionGroupRight .Body-button,
+.App button.primary-btn,
+.App .Body-button.transparent {
+  background-color: transparent;
+}
+.App .Body-button.transparent,
+.App .receiveStatecoin .receive-bottom div:first-child .inputs input { 
+  border: 1px solid rgba(117, 117, 117, 0.380392);
+}
+.App .nav-tabs .nav-item.nav-link {
+  background: #202020;
+}
+.App .progress .bg-success {
+  background-color: #919191 !important;
+}
+.App .scoreAmount,
+.App .CoinTimeLeft span,
+.App .CoinFundingTxid{
+  color: #ADADAD;
+}
+.App .scoreAmount .tooltip {
+  background-color: #121212;
+  color: #E7E7E7;
+}
+.App .welcome-btns div {
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid rgba(117, 117, 117, 0.380392);
+  border-radius: 4px;
+  color: #fff;
+}
+.App .welcome-btns img {
+  filter: invert(1);
+}
+.App select,
+.App input {
+  background-color: #2D2D2D;
+}
+.App .swap-header .subtitle {
+  color: inherit;
+}
+.App .settings .primary-btn-link.back,
+.App .modal-content .primary-btn.ghost {
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid rgba(117, 117, 117, 0.380392);
+}
+.App .settings .primary-btn,
+.App .modal-content .primary-btn.blue {
+  color: #0F54F4;
+  border-radius: 4px;
+  border: 1px solid rgba(117, 117, 117, 0.380392);
+}
+.App .wrap-btns .primary-btn.blue,
+.App .modal-content .primary-btn.ghost,
+.App .modal-content .primary-btn.blue,
+.App .wrap-btns .primary-btn.ghost {
+  border: 1px solid rgba(117, 117, 117, 0.380392);
+}
+.App .settings .content .inputs .inputs-item .control-label,
+.App .withdraw.content .inputs .smalltxt,
+.App .sendStatecoin.content .inputs .smalltxt,
+.App .receiveStatecoin .receive-bottom div:first-child .inputs .smalltxt {
+  background: #4e4e4e;
+  color: #fff;
+  border-radius: 4px;
+}
+.App .modal-content {
+  background: #2d2d2d;
+}
+.App .modal-content .custom-modal-info.alert-danger { 
+  color: #e67e7e;
+}
+.App .modal-content p { 
+  color: #fff;
+}
+.App .modal .item .block span:first-child {
+  color: #E7E7E7;;
+}
+.App .create-welcome-item {
+  background: #2d2d2d;
+}
+.App .footer-step-btns .primary-btn.blue {
+  background-color: #0F54F4;
+}
+.App .receiveStatecoin .receive-note {
+  color: #E7E7E7;
+}
+.App .receiveStatecoin-scan-txid .copy-btn-wrap {
+  background-color: #2d2d2d;
+}
+.App .help-tabs .content .title {
+  color: #E7E7E7;
+}
+.App .alert-danger {
+  background-color: #202020;
+  border-color: #202020;
+  border-radius: 4px;
+}
+.App .Collapse .image img,
+.App .filter-coin-icon svg,
+.App .deposit-header .nav-item img {
+  filter: invert(1);
+}
+.App .sort-by-menu svg path {
+    fill: #fff;
+}
+.App .filter-coin-options .filter-coin-head,
+.App .filter-coin-options label,
+.App .sort-by-options .sort-head span,
+.App .sort-by-options .order-item {
+  color: #2d2d2d;
+}
+.App .deposit .primary-btn.blue {
+  background-color: #0F54F4;
+}
+.App .deposit-statecoins .numbers-item .selected-value span:first-child,
+.App .deposit-statecoins .numbers .numbers-item .selected-value span:first-child b {
+  color: #0F54F4;
+}
+.App .deposit-statecoins .numbers .numbers-item .selected-value {
+  background-color: #192A4A;
+  border-radius: 4px;
+}
+.deposit-statecoins .numbers .numbers-item .selected-value {
+  background-color: #e6e6e6;
+}
+.App .deposit-settings select,
+.App .deposit-settings input {
+  border: 1px solid #4e4e4e;
+  border-radius: 4px;
+}
+.App .deposit-settings .modal-header {
+  border-bottom: 1px solid #4e4e4e;
+}
+.App .table {
+  background-color: #202020;
+}
+.App .deposit-scan-main-item,
+.App .deposit-scan-subtxt .deposit-scan-status span,
+.App .loading-trans {
+  background-color: #4e4e4e;
+}
+.App .deposit-scan-status img {
+  filter: invert(1);
+}
