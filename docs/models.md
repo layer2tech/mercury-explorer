@@ -38,7 +38,7 @@ This table lists all statechains, including withdrawn coins. It is updated whene
 
 #### sample table
 
-statechain_id | user_id | txid:vout | amount | chain | sharedpub | block_expiry | confirmed | updated_at
+statechain_id | user_id | txid:vout | amount | chain | sharedpub | block_expiry | confirmed |updated_at
 --- | --- | --- | --- | --- | --- | --- | --- | ---
 0e8b56... | 12345... | d3fea7c...:0 | 100000 | {"chain"... | 0354bca... | 2097800 | true | 2018-11-02 16:59:19.000
 90c878... | 22345... | 1e16db7...:1 | 100000 | {"chain"... | 023f022... | 2097900 | false | 2018-11-03 16:59:19.000
