@@ -38,12 +38,12 @@ This table lists all statechains, including withdrawn coins. It is updated whene
 
 #### sample table
 
-statechain_id | user_id | txid:vout | amount | chain | sharedpub | updated_at | block_expiry | confirmed
+statechain_id | user_id | txid:vout | amount | chain | sharedpub | block_expiry | confirmed | updated_at
 --- | --- | --- | --- | --- | --- | --- | --- | ---
-0e8b56... | 12345... | d3fea7c...:0 | 100000 | {"chain"... | 0354bca... | 2018-11-02 16:59:19.000 | 2097800 | true
-90c878... | 22345... | 1e16db7...:1 | 100000 | {"chain"... | 023f022... | 2018-11-03 16:59:19.000 | 2097900 | false
-b559c2... | 32345... | bb16ee2...:0 | 100000 | {"chain"... | 03354bc... | 2018-11-04 16:59:19.000 | 2097193 | true
-6feab3... | 42345... | 35b3138...:0 | 100000 | {"chain"... | 03db31b... | 2018-11-05 16:59:19.000 | 2097202 | true
+0e8b56... | 12345... | d3fea7c...:0 | 100000 | {"chain"... | 0354bca... | 2097800 | true | 2018-11-02 16:59:19.000
+90c878... | 22345... | 1e16db7...:1 | 100000 | {"chain"... | 023f022... | 2097900 | false | 2018-11-03 16:59:19.000
+b559c2... | 32345... | bb16ee2...:0 | 100000 | {"chain"... | 03354bc... | 2097193 | true | 2018-11-04 16:59:19.000
+6feab3... | 42345... | 35b3138...:0 | 100000 | {"chain"... | 03db31b... | 2097202 | true | 2018-11-05 16:59:19.000
 
 #### columns
 
