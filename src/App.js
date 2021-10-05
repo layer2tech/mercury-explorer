@@ -1,8 +1,9 @@
 import './App.css';
 import {Router, Switch, Route,Redirect} from 'react-router-dom';
 import { TopNavigation, Home, Swap, ScAddress, Transaction } from './containers';
+import { TableRows } from './components';
 import {routes} from './routes';
-import appHistory from './app.history'
+import appHistory from './app.history';
 
 // Mainstay adds: <Router history={appHistory} />
 
@@ -12,6 +13,8 @@ function App() {
       <div className = "App">
         <TopNavigation />
         <div className = "main">
+          <TableRows />
+          
           <Switch>
             <Route path = {routes.transaction} component = {Transaction} />
             <Route path = {routes.swap} component = {Swap} />
