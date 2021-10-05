@@ -1,0 +1,91 @@
+.table-component-holder{
+    display: flex;
+    justify-content: center;
+}
+
+.table-container{
+    padding-top: 55px;
+    position: relative;
+    width: 92%;
+    padding-bottom: 34px;
+    background-color: #202020;
+    box-shadow: #121212 0px 3px 3px 0px;
+    border-radius: 4px;
+}
+
+.table-container h1.table-title{
+    margin-bottom: 34px;
+    padding-left: 34px;
+    text-align: left;
+    font-size: 5.5625rem;
+}
+
+.flex-table{
+    margin-bottom: 0.7rem!important;
+}
+#table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+/* #table tr:first-child {
+    border: none;
+} */
+
+.main table {
+    max-height: 70vh;
+    overflow: auto;
+}
+table {
+    font-size: 1.3125rem;
+    border-collapse: separate;
+}
+table, tbody{
+    border: none !important;
+}
+
+#table th:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#table th:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#table th {
+    padding: 13px;
+    padding-left:34px;
+}
+
+#table th {
+    text-align: left;
+
+    color: #9e9e9e;
+    border: none;
+    height: 55px;
+}
+
+#table tbody tr{
+    height: 54px;
+    border-bottom: 0.5px solid #2D2D2D;
+    text-align: left;
+}
+#table tbody tr:hover{
+    background-color: #2D2D2D;
+}
+
+#table tbody tr td{
+    padding:13px;
+    padding-left:34px;
+}
+
+#table tbody .link{
+    text-decoration:none;
+    color: #009cff;
+}
+
+#table tbody .link:hover{
+    text-decoration: underline;
+}
