@@ -12,12 +12,12 @@ If a new row is added to the `statechain` table, this is a `DEPOSIT`. If the `ch
 
 #### sample table
 
-statechain_id | user_id | txid:vout | amount | address | event | inserted_at
---- | --- | --- | --- | --- | --- | ---
-0e8b56... | 12345... | d3fea7c...:0 | 100000 | sc1... | TRANSFER | 2018-11-02 16:59:19.000
-90c878... | 22345... | 1e16db7...:1 | 100000 | sc1... | DEPOSIT | 2018-11-03 16:59:19.000
-b559c2... | 32345... | bb16ee2...:0 | 100000 | bc1... | WITHDRAWAL | 2018-11-04 16:59:19.000
-6feab3... | 42345... | 35b3138...:0 | 100000 | sc1... | TRANSFER | 2018-11-05 16:59:19.000
+statechain_id | user_id | txid:vout | amount | address | event | locktime | inserted_at
+--- | --- | --- | --- | --- | --- | --- | ---
+0e8b56... | 12345... | d3fea7c...:0 | 100000 | sc1... | TRANSFER | 37673 | 2018-11-02 16:59:19.000
+90c878... | 22345... | 1e16db7...:1 | 100000 | sc1... | DEPOSIT | 376838 | 2018-11-03 16:59:19.000
+b559c2... | 32345... | bb16ee2...:0 | 100000 | bc1... | WITHDRAWAL | 43793 | 2018-11-04 16:59:19.000
+6feab3... | 42345... | 35b3138...:0 | 100000 | sc1... | TRANSFER | 478596 | 2018-11-05 16:59:19.000
 
 #### columns
 
@@ -38,12 +38,12 @@ This table lists all statechains, including withdrawn coins. It is updated whene
 
 #### sample table
 
-statechain_id | user_id | txid:vout | amount | chain | sharedpub | updated_at
---- | --- | --- | --- | --- | --- | ---
-0e8b56... | 12345... | d3fea7c...:0 | 100000 | {"chain"... | 0354bca... | 2018-11-02 16:59:19.000
-90c878... | 22345... | 1e16db7...:1 | 100000 | {"chain"... | 023f022... | 2018-11-03 16:59:19.000
-b559c2... | 32345... | bb16ee2...:0 | 100000 | {"chain"... | 03354bc... | 2018-11-04 16:59:19.000
-6feab3... | 42345... | 35b3138...:0 | 100000 | {"chain"... | 03db31b... | 2018-11-05 16:59:19.000
+statechain_id | user_id | txid:vout | amount | chain | sharedpub | block_expiry | confirmed |updated_at
+--- | --- | --- | --- | --- | --- | --- | --- | ---
+0e8b56... | 12345... | d3fea7c...:0 | 100000 | {"chain"... | 0354bca... | 2097800 | true | 2018-11-02 16:59:19.000
+90c878... | 22345... | 1e16db7...:1 | 100000 | {"chain"... | 023f022... | 2097900 | false | 2018-11-03 16:59:19.000
+b559c2... | 32345... | bb16ee2...:0 | 100000 | {"chain"... | 03354bc... | 2097193 | true | 2018-11-04 16:59:19.000
+6feab3... | 42345... | 35b3138...:0 | 100000 | {"chain"... | 03db31b... | 2097202 | true | 2018-11-05 16:59:19.000
 
 #### columns
 
