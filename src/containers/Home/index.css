@@ -31,3 +31,13 @@
         width:100%;
     }    
 }
+
+.icon-container img{
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.icon-container.txid img{
+    height:34px;
+    margin-bottom: 6px;
+}

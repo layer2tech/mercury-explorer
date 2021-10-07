@@ -1,4 +1,7 @@
 import { TableColumns, TableRows, Histogram } from '../../components';
+import btcIcon from '../../images/walletIcon.svg';
+import txidIcon from '../../images/txid-icon.svg';
+import swapIcon from '../../images/swap_icon-blue.svg';
 import './index.css';
 
 const data_summary = [{Total_Coins: 520, Total_Swapped: 401, Total_Value: "3.9 BTC", Total_Withdrawn:"2 BTC",
@@ -29,10 +32,16 @@ const Home = () => {
 
     return(
         <div className = "home-container">
-            <TableRows title = "Summary" data = {data_summary}/>
+            <TableRows title = {
+                <div className = "icon-container"><img src = {btcIcon} alt = "summary-btc" /> Summary</div>
+            } data = {data_summary}/>
             <Histogram title = "Coin Liquidity"/>
-            <TableColumns title = "Transactions" data = {data_tx.slice(0,4)}/>
-            <TableColumns title = "Batch Transfers" data = {data_batch.slice(0,4)}/>
+            <TableColumns title = {
+                <div className = "icon-container txid"><img src = {txidIcon} alt = "Transactions"/> Transactions</div>
+            } data = {data_tx.slice(0,4)}/>
+            <TableColumns title = {
+                <div className = "icon-container"><img src = {swapIcon} alt = "Batch Transfers"/> Batch Transfers</div>
+            } data = {data_batch.slice(0,4)}/>
         </div>
     )
 }
