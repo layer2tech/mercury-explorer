@@ -1,0 +1,11 @@
+.Swap .table-component-holder{
+    margin-bottom: 55px;
+}
+
+.Swap .link.tx-link{
+    text-decoration: none;
+    color: #9e9e9e;
+}
+.Swap .link.tx-link:hover{
+    color: #009cff;
+}

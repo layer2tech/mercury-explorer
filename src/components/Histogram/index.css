@@ -1,0 +1,33 @@
+.histogram-component{
+    display: flex;
+    justify-content: center;
+}
+
+.histogram-component{
+    margin-bottom: 34px;
+}
+
+.histogram-container{
+    padding-top: 55px;
+    position: relative;
+    width: 92%;
+    padding-bottom: 34px;
+    background-color: #202020;
+    box-shadow: #121212 0px 3px 3px 0px;
+    border-radius: 4px;
+}
+
+.histogram-container h1.histogram-title{
+    margin-bottom: 34px;
+    padding-left: 34px;
+    text-align: left;
+    font-size: 1.75rem;
+    width: 100%;
+}
+
+.histogram-container #reactgooglegraph-1{
+    padding-left: 34px;
+}
+
+
+

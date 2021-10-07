@@ -1,0 +1,25 @@
+.address .txid-page .table-container{
+    box-shadow: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.address .txid-page .table-container .title{
+    padding-top: 55px;
+}
+.address .txid-page .table-container .arrow{
+    transform: rotate(135deg);
+    height: 55px;
+}
+
+.address .txid-page .table-container:nth-child(2) .table-container{
+    padding-top: 0px;
+}
+
+.address .txid-page .container-title-container{
+    box-shadow: none;
+    padding:0px;
+}
+
+.address .txid-page .table-container div:last-child img{
+    display: none;
+}

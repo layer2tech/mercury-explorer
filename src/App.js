@@ -1,7 +1,6 @@
 import './App.css';
 import {Router, Switch, Route,Redirect} from 'react-router-dom';
-import { TopNavigation, Home, Swap, ScAddress, Transaction } from './containers';
-import { TableRows } from './components';
+import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers } from './containers';
 import {routes} from './routes';
 import appHistory from './app.history';
 
@@ -13,12 +12,12 @@ function App() {
       <div className = "App">
         <TopNavigation />
         <div className = "main">
-          <TableRows />
-          
           <Switch>
-            <Route path = {routes.transaction} component = {Transaction} />
+            <Route path = {routes.txid} component = {TransactionID} />
+            <Route path = {routes.transactions} component = {Transactions} />
             <Route path = {routes.swap} component = {Swap} />
-            <Route path = {routes.sc_address} component = {ScAddress} />
+            <Route path = {routes.batch_transfers} component = {BatchTransfers} />
+            <Route path = {routes.address} component = {Address} />
             <Route exact path = {routes.app} component = {Home} />
             <Redirect from = "*" to = {routes.app} component = {Home}/>
           </Switch>

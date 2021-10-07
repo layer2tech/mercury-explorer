@@ -1,3 +1,7 @@
+.navbar-collapse input[type = text]{
+    transition: width 0.4s ease-in-out;
+}
+
 @media only screen and (max-width: 1350px) {
     .search input {
         font-size: 13px;
@@ -7,6 +11,29 @@
 @media (min-width: 992px){
     .navbar-expand-lg .navbar-collapse.collapse {
         display: block!important;
+    }
+}
+
+@media (max-width: 992px){
+    .menu-item.search{
+        display: block;
+    }
+    .menu-item.search .input-group>.form-control{
+        box-shadow: 0px 0px 10px 1px #121212;
+        background-color: #202020!important;
+        color: #E7E7E7;
+        width: 292px!important;
+        border: 0px!important;
+    }
+    .menu-item.search input[type = text]:focus{
+        box-shadow: 0px 0px 10px 1px #121212!important;
+        background-color: #202020!important;
+        color: #E7E7E7;
+        width: 292px!important;
+        border: 0px!important;
+    }
+    .navbar-collapse input[type = text]{
+        transition: width 0.4s ease-in-out;
     }
 }
 
@@ -45,7 +72,7 @@ input.form-control:focus{
     width: 360px!important;
     border-radius: 0px!important;
     height: 60px!important;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .top-search {
@@ -85,7 +112,7 @@ input.form-control:focus{
     display: none;
 }
 
-@media only screen and (max-width: 1023px) {
+/* @media only screen and (max-width: 1023px) {
     .top-search-icon-mobile {
         display: block;
         position: absolute;
@@ -95,6 +122,11 @@ input.form-control:focus{
         width: 30px;
         height: 30px;
     }
+} */
+
+
+input[type=text]:focus {
+    width: 610px!important;
 }
 
 .top-search.wrong-search {

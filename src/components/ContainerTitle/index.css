@@ -1,0 +1,26 @@
+.container-title-component{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 34px;
+}
+
+.container-title-container{
+    padding-top: 55px;
+    padding: 55px 34px;
+    position: relative;
+    width: 92%;
+    padding-bottom: 34px;
+    background-color: #202020;
+    box-shadow: #121212 0px 3px 3px 0px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-width: none;
+}
+
+@media only screen and (max-width: 750px){
+    .container-title-component h1{
+        font-size: 16px;
+    }
+}

@@ -1,6 +1,8 @@
 export const routes = {
     app: '/',
-    sc_address: '/sc_address/:id',
+    address: '/address/:id',
     swap: '/swap/:id',
-    transaction: '/transaction/:id'
+    batch_transfers: '/swap',
+    txid: '/tx/:id',
+    transactions: '/tx'
 }

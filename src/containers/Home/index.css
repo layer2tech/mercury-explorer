@@ -1,0 +1,33 @@
+.home-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.home-container .histogram-component{
+    width:50%;
+}
+
+.home-container .table-component-holder{
+    min-width: 675px;
+}
+
+.home-container .table-component-holder{
+    margin-bottom: 55px;
+}
+
+.home-container .table-component-holder{
+    width:50%;
+}
+
+@media only screen and (max-width:1350px) {
+    .home-container{
+        justify-content: center;
+    }
+    .home-container .table-component-holder{
+        width:100%;
+    }
+    .home-container .histogram-component{
+        width:100%;
+    }    
+}

@@ -17,7 +17,7 @@
     margin-bottom: 34px;
     padding-left: 34px;
     text-align: left;
-    font-size: 5.5625rem;
+    font-size: 1.75rem;
 }
 
 .flex-table{
@@ -28,16 +28,13 @@
     width: 100%;
     margin-top: 20px;
 }
-/* #table tr:first-child {
-    border: none;
-} */
 
 .main table {
     max-height: 70vh;
     overflow: auto;
 }
 table {
-    font-size: 1.3125rem;
+    font-size: 16px;
     border-collapse: separate;
 }
 table, tbody{
@@ -61,7 +58,6 @@ table, tbody{
 
 #table th {
     text-align: left;
-
     color: #9e9e9e;
     border: none;
     height: 55px;
@@ -72,6 +68,7 @@ table, tbody{
     border-bottom: 0.5px solid #2D2D2D;
     text-align: left;
 }
+
 #table tbody tr:hover{
     background-color: #2D2D2D;
 }

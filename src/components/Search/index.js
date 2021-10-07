@@ -1,11 +1,11 @@
 import { useState } from 'react';
-
+import searchImg from '../../images/search.svg';
 import apiService from '../../helpers/api-service';
 
 import './index.css';
 
 
-const Search = () => {
+const Search = (props) => {
     const [wrongSearchValue, setWrongSearchValue] = useState(false)
     const [value,setValue] = useState("")
 
@@ -57,10 +57,10 @@ const Search = () => {
                         name="query"
                         id="search"
                         className={'form-control top-search mousetrap ' + (wrongSearchValue && 'wrong-search')}
-                        placeholder="Search for position, commitment, txid, ..."
+                        placeholder={props.placeholder}
                         value={value} onChange={handleChange}
                     />
-                    <img src="search.svg" alt="search" className="top-search-icon" />
+                    <img src={searchImg} alt="search" className="top-search-icon" />
                     {
                         wrongSearchValue &&
                         <div className="search-tooltip ">
