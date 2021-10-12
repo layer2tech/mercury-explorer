@@ -7,8 +7,7 @@ Install with [npm](https://www.npmjs.com/):
 
 ```sh
 $ cd api
-$ npm install
-$ npm run server
+$ npm install && npm run server
 ```
 
 ## Install client
@@ -16,8 +15,7 @@ Install with [npm](https://www.npmjs.com/):
 
 ```sh
 $ cd client
-$ npm install
-$ npm start
+$ npm install && npm start
 ```
 
 ### Running tests
@@ -29,4 +27,4 @@ $ npm install && npm test
 ```
 
 ### Licence
-released under GNU General Public License v3.0
+Released under GNU General Public License v3.0
