@@ -1,6 +1,6 @@
 # mercury-explorer
 
-> Statechain explorer for mercury
+> Statechain explorer for [mercury](https://github.com/commerceblock/mercury)
 
 ## Install api
 Install with [npm](https://www.npmjs.com/):
