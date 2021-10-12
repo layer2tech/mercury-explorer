@@ -1,6 +1,6 @@
 # mercury-explorer
 
-> Statechain explorer for [mercury](https://github.com/commerceblock/mercury)
+> Statechain explorer for [Mercury](https://github.com/commerceblock/mercury)
 
 ## Install api
 Install with [npm](https://www.npmjs.com/):
@@ -27,4 +27,4 @@ $ npm install && npm test
 ```
 
 ### Licence
-Released under GNU General Public License v3.0
+Mercury Explorer is released under the terms of the GNU General Public License. See for more information https://opensource.org/licenses/GPL-3.0
