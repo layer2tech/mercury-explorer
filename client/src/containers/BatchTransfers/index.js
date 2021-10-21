@@ -1,4 +1,9 @@
+import { useSelector } from 'react-redux';
+
 import { ContainerTitle,TableColumns } from '../../components';
+
+import { allBatchSelector, allBatchStatus } from '../../store/features/dataSlice';
+import swapIcon from '../../images/swap_icon-blue.svg';
 import './index.css';
 
 /*
@@ -8,22 +13,14 @@ Headers for Columns Table:
 - finalized_at    
 */
 
-const data = [{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"},
-{batch_id: "12323fsef2334", statechains: [1,2,3,45], finalized_at: "00:00:00 1/21/11"}]
-
 const BatchTransfers = (props) => {
+    const batchData = useSelector(allBatchSelector)
+    const batchStatus = useSelector(allBatchStatus)
     // GET array of Objects with keys listed above from statechains table
     return(
         <div className = "batch-transfers">
             <div>
-                <TableColumns data = {data} title = "Batch Transfers"/>
+                { batchStatus === "fulfilled" ? <TableColumns data = {batchData} title = "Batch Transfers" img = {swapIcon}/> : null }
             </div>
         </div>
     )

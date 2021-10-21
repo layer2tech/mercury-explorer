@@ -1,22 +1,25 @@
 import { Link } from 'react-router-dom';
+import { tableTitles } from '../../store/features/dataSlice';
 
 import './index.css';
 
 // Data in table headers
 
 const TableColumns = (props) => {
+
     return(
     <div className = "table-component-holder column-table">
         <div className = "table-container">
             <h1 className = "table-title" >
-                {props.title}
+            <div className = "icon-container txid"><img src = {props.img} alt = {props.title}/>{props.title}</div>
             </h1> 
             <div className="mb-3 flex-table">
                 <table width="100%" id="table">
                     <thead>
                         <tr>{/* Change key for more readable format */}
-                            {Object.keys(props.data[0]).map(key => 
-                                <th>{key}</th>
+                            {Object.keys(props.data[0]).map(key =>
+                                key !== "id" && key !== "_id" ? <th>{tableTitles(key)}</th> : null
+                            
                             )}
                         </tr>
                     </thead>
@@ -33,9 +36,11 @@ const TableColumns = (props) => {
                                         {item.batch_id}
                                     </Link>
                                 </td>
+
                                 <td>
                                     <span className="text-right ml-1">{item.statechains.length}</span>
                                 </td>
+                                
                                 <td>
                                     <span className="text-right ml-1">{item.finalized_at}</span>
                                 </td>
@@ -68,11 +73,11 @@ const TableColumns = (props) => {
                     </tbody>
                 </table>
                 
-                {(props.title === "Batch Transfers" || "Transfers") && 
+                {(props.title === "Batch Transfers" || props.title === "Transactions") && 
                     props.data.length < 6 ?
                 (<div className = "see-more">
                     <Link className = "see-more-link"
-                        to = {props.title === "Transfers" ? '/tx': '/swap'}
+                        to = {props.title === "Transactions" ? '/tx': '/swap'}
                         >
                         <p>See More</p>
                         <img className = "arrow" src = "arrow-up.svg" />

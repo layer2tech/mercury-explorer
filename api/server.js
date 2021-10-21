@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
@@ -28,9 +28,10 @@ app.get("/", (req, res) => {
   res.send("Mercury Explorer API Endpoint");
 });
 
-require("./app/routes/statechain.routes")(app);
+// require("./app/routes/statechain.routes")(app);
 require('./app/routes/transaction.routes')(app);
 require('./app/routes/batchtransfer.routes')(app);
+
 
 // start server
 const PORT = process.env.PORT || 8080;

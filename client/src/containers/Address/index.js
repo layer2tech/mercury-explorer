@@ -1,42 +1,56 @@
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadAddress, fromSatoshi } from '../../store/features/dataSlice';
 import { TableRows,ContainerTitle } from '../../components';
 import './index.css';
-
-/*
-TITLE: address  ------------- Transactions: # of Tx
-
-For each TxId, have a table of:
-EVENT:
-    - address
-    - TxID:vout
-    - amount
-    - Event
-    - block_expiry
-    - confirmed
-    - inserted_at
-
-*/
-
-const data = [{address: 'sc1qrifdfsdasd', txid_vout: 'dhaeiuhfiujh4iuy839:0', event: 'Transfer',amount: 0.001, block_expiry: 902143, confirmed: true
-, inserted_at: "00:21:43:33"},{address: 'sc1qrifdfsdasd', txid_vout: 'dhaeiuhfiujh4iuy839:0', event: 'Transfer',amount: 0.001, block_expiry: 902143, confirmed: true
-, inserted_at: "00:21:43:33"}]
+import EmptySearch from '../../components/EmptySearch';
 
 const Address = (props) => {
-    let address = props.match.params.id
+    const dispatch = useDispatch()
+    const [data, setData] = useState([])
+    const [refresh,setRefresh] = useState()
 
-    // Get data for address in format shown above
+    let address = props.match.params.id
+    const addressData = useSelector(state => state.data.address_data)
+    const addressList = useSelector(state => state.data.address_list)
+    const addressStatus = useSelector(state => state.data.address_status)
     
-    return(
-        <div className = "address">
-            <ContainerTitle title = {address} info = {`Transactions: ${data.length}`} />
-            <div>
-                {/* Change data to a props attribute */}
-                {data.map(item => {
-                    delete item.sc_address
-                    let event = item.event
-                    delete item.event
-                    return (<TableRows data = {[item]} title = {`Event: ${event}`} />)
-                })}
-            </div>
+
+    useEffect(()=> {
+        if(!addressList.includes(address)){
+            if(addressStatus !== "pending") dispatch(loadAddress(address))
+            setRefresh()
+        }
+        else{
+
+            setData(addressData[addressList.indexOf(address)])
+            
+        }
+    },[data,addressStatus,address,dispatch])
+
+    return( 
+        <div>
+            {data.length !== 0 ? 
+            <div className = "address">
+                <ContainerTitle title = {address} info = {`Transactions: ${data.length}`} />
+                <div>
+                    {/* Change data to a props attribute */}
+                    {addressData[addressList.indexOf(address)] ? 
+                    data.map(item => {
+                        let event = item.event
+                        const dataResults = {
+                            txid_vout: item.txid_vout,
+                            amount: fromSatoshi(item.amount),
+                            locktime: item.locktime,
+                            inserted_at: item.inserted_at,
+                            confirmed: item.confirmed
+                        }
+                        return (<TableRows data = {[dataResults]} title = {`Event: ${event}`} />)
+                    }) : null}
+                </div>
+            </div> : (
+                <EmptySearch />
+            )}
         </div>
     )
 }

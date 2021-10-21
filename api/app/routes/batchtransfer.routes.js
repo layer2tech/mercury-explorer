@@ -3,14 +3,11 @@ module.exports = app => {
 
   var router = require("express").Router();
 
-  // Create a new Statechain - test only
-  router.post("/", batchtransfers.create);
-
   // Retrieve all Statechains
   router.get("/", batchtransfers.findAll);
 
   // Retrieve a single Statechain with id
-  router.get("/:id", batchtransfers.findOne);
+  router.get("/:id", batchtransfers.findByBatchID);
 
-  app.use("/api/batchtransfers", router);
+  app.use("/api/swap", router);
 };

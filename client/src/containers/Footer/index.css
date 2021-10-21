@@ -1,0 +1,28 @@
+.footer-container{
+    display: flex;
+    flex-direction: row;
+    padding: 0% 6% 0% 6%;
+    justify-content: space-between;
+}
+
+.footer-list-item{
+    padding: 0.5% 0% 0.5% 0%;
+    text-align: left;
+}
+
+.footer-list-item a{
+    text-decoration: none
+}
+.footer-list-item a:hover{
+    color: #009cff!important
+}
+
+.image-copyright .m-auto{
+    display: flex;
+    flex-direction: column;
+}
+
+.image-copyright .m-auto svg{
+    align-self: flex-end;
+    margin-bottom:16px;
+}

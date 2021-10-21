@@ -5,32 +5,297 @@ exports.create = (req, res) => {
   res.status(500).send({message: 'Server does not accept post requests'})
 };
 
-exports.findOne = (req, res) => {
-  const id = req.params.id;
-  Transaction.findById(id)
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Couldn't find Transaction with id: " + id });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error finding Transaction with id: " + id });
-    });
-};
+// GET /tx
+exports.findAllTransactions = (req,res) => {
+  const pipeline = [
+      {
+        '$project': {
+          'txid_vout': '$txid_vout', 
+          'address': '$address', 
+          'inserted_at': '$inserted_at'
+        }
+      }
+  ]
 
-exports.findAll = (req, res) => {
-  const id = req.query.id;
-  var condition = id ? {id: { $regex: new RegExp(id), $options: "i" } } : {};
-  Transaction.find(condition)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
+  Transaction.aggregate(pipeline)
+      .then(data => {
+          res.json(data)
+      })
+      .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "error occurred while finding Transaction"
+          });
+      });
+}
+
+//GET /tx/:id
+exports.findByTxID = (req,res) => {
+  const id = req.params.id
+
+  const pipeline = [
+      {
+        '$match': {
+          'txid_vout': id
+        }
+      }, {
+        '$lookup': {
+          'from': 'statechains', 
+          'localField': 'txid_vout', 
+          'foreignField': 'txid_vout', 
+          'as': 'statechains'
+        }
+      }, {
+        '$unwind': '$statechains'
+      }, {
+        '$project': {
+          'txid_vout': '$txid_vout', 
+          'address': '$address', 
+          'event': '$event', 
+          'amount': '$amount', 
+          'locktime': '$locktime', 
+          'confirmed': '$statechains.confirmed', 
+          'chain': '$statechains.chain', 
+          'updated_at': '$statechains.updated_at'
+        }
+      }
+  ]
+
+  Transaction.aggregate(pipeline)
+      .then(data => {
+          res.json(data)
+      })
+      .catch(err => {
+          res.status(500).send({
+          message:
+              err.message || "error occurred while finding Transaction"
+          });
+      });
+}
+
+//GET /address/:id
+exports.findByAddress = (req,res) => {
+  const id = req.params.id;
+
+  const pipeline = [
+    {
+        '$match': {
+            'address': id
+        }
+    }, {
+        '$lookup': {
+            'from': 'statechains', 
+            'localField': 'txid_vout', 
+            'foreignField': 'txid_vout', 
+            'as': 'statechains'
+        }
+    }, {
+        '$unwind': '$statechains'
+    }, {
+        '$project': {
+            'address': '$address', 
+            'event': '$event', 
+            'inserted_at': '$inserted_at', 
+            'amount': '$amount', 
+            'locktime': '$locktime', 
+            'txid_vout': '$txid_vout', 
+            'confirmed': '$statechains.confirmed'
+        }
+    }
+  ];
+
+  Transaction.aggregate(pipeline)
+  .then(data => {
+    res.json(data)
+  })
+  .catch(err => {
       res.status(500).send({
-        message:
+      message:
           err.message || "error occurred while finding Transaction"
       });
-    });
-};
+  });
+}
+
+exports.getSummary = (req,res) => {
+  const pipeline = [
+    {
+      '$match': {
+        'event': 'DEPOSIT'
+      }
+    }, {
+      '$group': {
+        '_id': 1, 
+        'total_deposit': {
+          '$sum': '$amount'
+        }, 
+        'deposited_coins': {
+          '$sum': 1
+        }
+      }
+    }, {
+      '$lookup': {
+        'from': 'transactions', 
+        'localField': 'string', 
+        'foreignField': 'string', 
+        'as': 'transactions'
+      }
+    }, {
+      '$unwind': '$transactions'
+    }, {
+      '$match': {
+        'transactions.event': 'WITHDRAWAL'
+      }
+    }, {
+      '$project': {
+        'total_deposit': '$total_deposit', 
+        'deposited_coins': '$deposited_coins', 
+        'total_withdrawn': {
+          '$sum': '$transactions.amount'
+        }, 
+        'withdrawn_coins': {
+          '$sum': 1
+        }
+      }
+    }, {
+      '$lookup': {
+        'from': 'transactions', 
+        'localField': 'string', 
+        'foreignField': 'string', 
+        'as': 'transactions'
+      }
+    }, {
+      '$unwind': '$transactions'
+    }, {
+      '$match': {
+        'transactions.event': 'TRANSFER'
+      }
+    }, {
+      '$group': {
+        '_id': 1, 
+        'total_deposit': {
+          '$first': '$total_deposit'
+        }, 
+        'deposited_coins': {
+          '$first': '$deposited_coins'
+        }, 
+        'total_withdrawn': {
+          '$first': '$total_withdrawn'
+        }, 
+        'withdrawn_coins': {
+          '$first': '$withdrawn_coins'
+        }, 
+        'total_transfers': {
+          '$sum': 1
+        }
+      }
+    }, {
+      '$lookup': {
+        'from': 'batchtransfers', 
+        'localField': 'string', 
+        'foreignField': 'string', 
+        'as': 'batchtransfers'
+      }
+    }, {
+      '$unwind': '$batchtransfers'
+    }, {
+      '$unwind': '$batchtransfers.statechains'
+    }, {
+      '$project': {
+        'total_coins': {
+          '$subtract': [
+            '$deposited_coins', '$withdrawn_coins'
+          ]
+        }, 
+        'total_deposit': '$total_deposit', 
+        'total_withdrawn': '$total_withdrawn', 
+        'total_transfers': '$total_transfers'
+      }
+    }, {
+      '$group': {
+        '_id': 1, 
+        'total_coins': {
+          '$first': '$total_coins'
+        }, 
+        'total_deposit': {
+          '$first': '$total_deposit'
+        }, 
+        'total_withdrawn': {
+          '$first': '$total_withdrawn'
+        }, 
+        'total_transfers': {
+          '$first': '$total_transfers'
+        }, 
+        'total_swapped': {
+          '$sum': 1
+        }
+      }
+    }
+  ]
+
+  Transaction.aggregate(pipeline)
+  .then(data => {
+    res.json(data)
+  })
+  .catch(err => {
+      res.status(500).send({
+      message:
+          err.message || "error occurred while finding Transaction"
+      });
+  });
+}
+
+exports.getDepositHistogram = (req,res) => {
+  const pipeline = [
+    {
+      '$match': {
+        'event': 'DEPOSIT'
+      }
+    }, {
+      '$group': {
+        '_id': '$amount', 
+        'count': {
+          '$sum': 1
+        }
+      }
+    }
+  ]
+
+  Transaction.aggregate(pipeline)
+  .then(data => {
+    res.json(data)
+  })
+  .catch(err => {
+      res.status(500).send({
+      message:
+          err.message || "error occurred while finding Transaction"
+      });
+  });
+}
+
+exports.getWithdrawHistogram = (req,res) => {
+  const pipeline = [
+    {
+      '$match': {
+        'event': 'WITHDRAWAL'
+      }
+    }, {
+      '$group': {
+        '_id': '$amount', 
+        'count': {
+          '$sum': 1
+        }
+      }
+    }
+  ]
+
+  Transaction.aggregate(pipeline)
+  .then(data => {
+    res.json(data)
+  })
+  .catch(err => {
+      res.status(500).send({
+      message:
+          err.message || "error occurred while finding Transaction"
+      });
+  });
+}

@@ -1,0 +1,9 @@
+.empty {
+    padding: 0 0 65px 0;
+    color: #979797;
+}
+
+.empty .exclamation{
+    transform: scale(1.5);
+    margin: 65px 0px 20px 0px;
+}

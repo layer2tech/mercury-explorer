@@ -1,32 +1,18 @@
 import { ContainerTitle,TableColumns } from '../../components';
+import { useSelector } from 'react-redux';
 import './index.css';
-
-/*
-Headers for Columns Table:
-- txid:vout
-- address
-- inserted_at
-*/
-
-const data = [{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"},
-{txid_vout: "dasf4wr324e3rwe32:0", address: "sc1fsefwefgrgffer", inserted_at: "13:25:37 22/10/21"}]
+import txidIcon from '../../images/txid-icon.svg';
+import { allTxSelector, allTxStatus } from '../../store/features/dataSlice';
 
 const Transactions = (props) => {
-
+    const txData = useSelector(allTxSelector)
+    const txStatus = useSelector(allTxStatus)
     // GET array of Objects with keys listed above from transactions table
 
     return(
     <div className = "transactions">
         <div>
-            <TableColumns data = {data} title = "Transactions"/>
+            {txStatus === "fulfilled" ? <TableColumns data = {txData} title = "Transactions" img={txidIcon}/> : null}
         </div>
     </div>
     )

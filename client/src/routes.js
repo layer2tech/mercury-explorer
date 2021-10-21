@@ -4,5 +4,8 @@ export const routes = {
     swap: '/swap/:id',
     batch_transfers: '/swap',
     txid: '/tx/:id',
-    transactions: '/tx'
+    transactions: '/tx',
+    about: '/about',
+    privacy: '/privacy',
+    terms: '/terms'
 }

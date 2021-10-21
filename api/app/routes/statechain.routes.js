@@ -6,11 +6,19 @@ module.exports = app => {
   // Create a new Statechain - test only
   router.post("/", statechains.create);
 
-  // Retrieve all Statechains
-  router.get("/", statechains.findAll);
 
-  // Retrieve a single Statechain with id
-  router.get("/:id", statechains.findOne);
+  // GET /address/:id
+  /**
+  * - address
+  * - event
+  * - inserted_at
+  * - amount
+  * - locktime
+  * - txid_vout
+  * - confirmed
+  */
 
-  app.use("/api/statechains", router);
+  router.get("/address", statechains.findByAddress)
+
+  app.use("/api", router);
 };

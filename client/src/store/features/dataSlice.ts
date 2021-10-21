@@ -1,27 +1,159 @@
+import apiService from '../api-service/api-service';
+import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from '../store';
 
 export interface DataValue {
-    value: Number;
-    status: 'pending'
+    summary: any
+    summary_status: string
+    depositHisto: any
+    depositHisto_status: string
+    withdrHisto: any
+    withdrHisto_status: string
+    tx: any
+    tx_status: string
+    batch_tx: any
+    batch_status: string
+    address_list: any
+    address_data: any
+    address_status: string
+    batch_id_list: any
+    batch_id_data: any
+    batch_id_status: string
+    txid_list: any
+    txid_data: any
+    txid_status: string
 }
 
 const initialState: DataValue = {
-    value: 0,
-    status: 'pending'
+    summary: [],
+    summary_status: "idle",
+    depositHisto: [],
+    depositHisto_status: "idle",
+    withdrHisto: [],
+    withdrHisto_status: "idle",
+    tx: [],
+    tx_status: "idle",
+    batch_tx: [],
+    batch_status: "idle",
+    address_list: [],
+    address_data: [],
+    address_status: "idle",
+    batch_id_list: [],
+    batch_id_data: [],
+    batch_id_status: "idle",
+    txid_list: [],
+    txid_data: [],
+    txid_status: "idle",
+
 }
 
+export const summarySelector = (state: RootState) => state.data.summary
+
+export const summaryStatus = (state: RootState) => state.data.summary_status
+
+export const depHistoSelector = (state: RootState) => state.data.depositHisto
+
+export const depHistoStatus = (state: RootState) => state.data.depositHisto_status
+
+export const withdrHistoSelector = (state: RootState) => state.data.withdrHisto
+
+export const withdrHistoStatus = (state: RootState) => state.data.withdrHisto_status
+
+export const allBatchSelector = (state: RootState) => state.data.batch_tx
+
+export const allBatchStatus = (state: RootState) => state.data.batch_status
+
+export const allTxSelector = (state: RootState) => state.data.tx
+
+export const allTxStatus = (state: RootState) => state.data.tx_status
 
 //Example of Async thunk below for fetching data
 // Redux Counter example:
 
-// export const incrementAsync = createAsyncThunk(
-//     'counter/fetchCount',
-//     async (amount: number) => {
-//       const response = await fetchCount(amount); // fetchCount is a promise
-//       // The value we return becomes the `fulfilled` action payload
-//       return response.data;
-//     }
-//   );
+export const loadSummary = createAsyncThunk('data/loadSummary', async () => {
+    const response = await axios.get(`http://localhost:8080/api/summary`)
+    return response.data
+})
+
+export const loadHistogramDeposit = createAsyncThunk('data/loadHistogramDeposit', async () => {
+    const response = await axios.get(`http://localhost:8080/api/histo/deposit`)
+    return response.data
+})
+
+export const loadHistogramWithdraw = createAsyncThunk('data/loadHistogramWithdraw', async () => {
+    const response = await axios.get(`http://localhost:8080/api/histo/withdraw`)
+    return response.data
+})
+
+export const loadAllBatchTx = createAsyncThunk('data/loadAllBatchTx', async () => {
+    const response = await axios.get("http://localhost:8080/api/swap")
+    return response.data
+})
+
+export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
+    const response = await axios.get("http://localhost:8080/api/tx")
+    return response.data
+})
+
+export const loadAddress = createAsyncThunk('data/loadAddress', async (address) => {
+    const response = await axios.get(`http://localhost:8080/api/address/${address}`)
+    return [response.data, address]
+})
+
+export const loadBatchTx = createAsyncThunk('data/loadBatchTx', async (batch_id) => {
+    const response = await axios.get(`http://localhost:8080/api/swap/${batch_id}`)
+    return [response.data, batch_id]
+})
+
+export const loadTx = createAsyncThunk('data/loadTx', async (txid) => {
+    const response = await axios.get(`http://localhost:8080/api/tx/${txid}`)
+    return [response.data, txid]
+})
+
+
+export const tableTitles = (title : string) => {
+
+    switch(title){
+        case "txid_vout":
+            return "Tx ID"
+        case "batch_id":
+            return "Batch ID"
+        case "address":
+            return "Address"
+        case "locktime":
+            return "Expiry Time"
+        case "amount":
+            return "Amount (BTC)"
+        case "confirmed":
+            return "Confirmed"
+        case "event":
+            return "Event"
+        case "statechains":
+            return "Swap Size"
+        case "inserted_at":
+            return "Inserted"
+        case "updated_at":
+            return "updated"
+        case "finalized_at":
+            return "Finished"
+        case "total_coins":
+            return "Coins Volume"
+        case "total_deposit":
+            return "Total Deposited (BTC)"
+        case "total_withdrawn":
+            return "Total Withdrawn (BTC)"
+        case "total_transfers":
+            return "Total Transfers"
+        case "total_swapped":
+            return "Total Swapped"
+        default:
+            return title
+    }
+}
+
+// Satoshi value -> BTC value
+export const fromSatoshi = (sat: number) => { return sat / 10e7 }
 
 export const dataSlice = createSlice({
     name: 'data',
@@ -29,10 +161,103 @@ export const dataSlice = createSlice({
     reducers: {
         //For mutating state
     },
+
     //Actions generated by createAsyncThunk to stored here
     extraReducers: (builder)=> {
+        builder
+            .addCase(loadSummary.fulfilled, (state,action) => {
+                state.summary = action.payload
+                state.summary_status = "fulfilled"
+            })
+            .addCase(loadSummary.pending, (state,action) => {
+                state.summary_status = "pending"
+            })
+            .addCase(loadSummary.rejected, (state,action) => {
+                state.summary_status = "rejected"
+            })
+            .addCase(loadHistogramDeposit.fulfilled, (state,action) => {
+                const depositHist = action.payload
+                state.depositHisto = depositHist
+                state.depositHisto_status = "fulfilled"
+            })
+            .addCase(loadHistogramDeposit.pending, (state,action) => {
+                state.depositHisto_status = "pending"
+            })
+            .addCase(loadHistogramDeposit.rejected, (state,action) => {
+                state.depositHisto_status = "rejected"
+            })
+            .addCase(loadHistogramWithdraw.fulfilled, (state,action) => {
+                const withdrawHist = action.payload
+                state.withdrHisto = withdrawHist
+                state.withdrHisto_status = "fulfilled"
+            })
+            .addCase(loadHistogramWithdraw.pending, (state,action) => {
+                state.withdrHisto_status = "pending"
+            })
+            .addCase(loadHistogramWithdraw.rejected, (state,action) => {
+                state.withdrHisto_status = "rejected"
+            })
+            .addCase(loadAllBatchTx.fulfilled, (state,action) => {
+                state.batch_tx = action.payload
+                state.batch_status = "fulfilled"
+            })
+            .addCase(loadAllBatchTx.pending, (state,action) => {
+                state.batch_status = "pending"
+            })
+            .addCase(loadAllBatchTx.rejected, (state,action) => {
+                state.batch_status = "rejected"
+            })
+            .addCase(loadAllTx.fulfilled, (state,action) => {
+                state.tx = action.payload
+                state.tx_status = "fulfilled"
+            })
+            .addCase(loadAllTx.pending, (state,action) => {
+                state.tx_status = "pending"
+            })
+            .addCase(loadAllTx.rejected, (state,action) => {
+                state.tx_status = "rejected"
+            })
+            .addCase(loadAddress.fulfilled, (state,action) => {
+                const [data,address] = action.payload
+                state.address_list.push(address)
+                state.address_data.push(data)
+                state.address_status = "fulfilled"
+
+            })
+            .addCase(loadAddress.pending, (state,action) => {
+                state.address_status = "pending"
+            })
+            .addCase(loadAddress.rejected, (state,action) => {
+                state.address_status = "rejected"
+            })
+            .addCase(loadBatchTx.fulfilled, (state,action) => {
+                const [data,batch_id] = action.payload
+                state.batch_id_list.push(batch_id)
+                state.batch_id_data.push(data)
+                state.batch_id_status = "fulfilled"
+
+            })
+            .addCase(loadBatchTx.pending, (state,action) => {
+                state.batch_id_status = "pending"
+            })
+            .addCase(loadBatchTx.rejected, (state,action) => {
+                state.batch_id_status = "rejected"
+            })
+
+            .addCase(loadTx.fulfilled, (state,action) => {
+                const [data,txid] = action.payload
+                state.txid_list.push(txid)
+                state.txid_data.push(data)
+                state.txid_status = "fulfilled"
+
+            })
+            .addCase(loadTx.pending, (state,action) => {
+                state.txid_status = "pending"
+            })
+            .addCase(loadTx.rejected, (state,action) => {
+                state.txid_status = "rejected"
+            })
         
-        //.asyncFunction
     }
 })
 

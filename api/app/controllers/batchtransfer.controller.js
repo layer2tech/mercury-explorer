@@ -7,7 +7,7 @@ exports.create = (req, res) => {
 
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  BatchTransfer.findById(id)
+  BatchTransfer.find({"batch_id": id})
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Couldn't find BatchTransfer with id: " + id });
@@ -21,9 +21,18 @@ exports.findOne = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const id = req.query.id;
-  var condition = id ? {id: { $regex: new RegExp(id), $options: "i" } } : {};
-  BatchTransfer.find(condition)
+  const pipeline = [
+    {
+      '$project': {
+        'batch_id': '$batch_id', 
+        'statechains': '$statechains', 
+        'finalized_at': '$finalized_at'
+      }
+    }
+]
+  // const id = req.query.id;
+  // var condition = id ? {id: { $regex: new RegExp(id), $options: "i" } } : {};
+  BatchTransfer.aggregate(pipeline)
     .then(data => {
       res.send(data);
     })
@@ -34,3 +43,57 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+exports.findByBatchID = (req,res) => {
+  
+  const id = req.params.id;
+  
+  //  CHANGE USER_ID FOR STATECHAIN_ID in ''foreignField': 'user_id','
+  const pipeline =[
+    {
+      '$match': {
+        'batch_id': id
+      }
+    }, {
+      '$unwind': '$statechains'
+    }, {
+      '$lookup': {
+        'from': 'statechains', 
+        'localField': 'statechains', 
+        'foreignField': 'user_id', 
+        'as': 'tx'
+      }
+    }, {
+      '$unwind': '$tx'
+    }, {
+      '$lookup': {
+        'from': 'transactions', 
+        'localField': 'tx.txid_vout', 
+        'foreignField': 'txid_vout', 
+        'as': 'transactions'
+      }
+    }, {
+      '$unwind': '$transactions'
+    }, {
+      '$project': {
+        'batch_id': '$batch_id', 
+        'txid_vout': '$tx.txid_vout', 
+        'amount': '$tx.amount', 
+        'updated_at': '$tx.updated_at', 
+        'address': '$transactions.address'
+      }
+    }
+  ]
+
+  BatchTransfer.aggregate(pipeline)
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => {
+        res.status(500).send({
+        message:
+            err.message || "error occurred while finding Transaction"
+        });
+    });
+
+}

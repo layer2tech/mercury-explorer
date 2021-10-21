@@ -6,3 +6,5 @@ export { default as Search } from './Search';
 export {default as Histogram} from './Histogram';
 
 export {default as ContainerTitle} from './ContainerTitle';
+
+export { default as EmptySearch } from "./EmptySearch";

@@ -6,7 +6,7 @@ module.exports = mongoose => {
     amount: { type: Number, default: 0, index: true },
     chain: { type: Object, index: true },
     sharedpub: { type: String, index: true },
-    block_expiry: { type: Number, default: 0, index: true },
+    locktime: { type: Number, default: 0, index: true },
     confirmed: { type: Boolean, index: true },
     updated_at: { type: Date}
   }, {id: false});
