@@ -27,7 +27,11 @@ const TableRows = (props) => {
                                     {/* Make object that converts key
                                     to readable  heading format*/}
                                 </th>
-                                {key === "address" || key === "txid_vout" ? (
+                                {value === undefined ? (
+                                <td>
+                                    <span className="text-right ml-1"> - </span>    
+                                </td>
+                                ):( key === "address" || key === "txid_vout" ? (
                                     <td>
                                         <Link
                                             className = "link"
@@ -40,7 +44,8 @@ const TableRows = (props) => {
                                     <td>
                                         <span className="text-right ml-1">{key === "total_deposit" ||  key === "total_withdrawn" ? fromSatoshi(value) :value}</span>    
                                     </td>
-                                )}
+                                ))}
+                                
                             </tr>)
                         }
                     })

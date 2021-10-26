@@ -9,3 +9,5 @@ export { default as BatchTransfers } from './BatchTransfers';
 export { default as TransactionID } from './TransactionID';
 export { default as Transactions } from './Transactions';
 
+export { default as TermsConditions } from './TermsConditions';
+

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {Router, Switch, Route,Redirect} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { allTxStatus,allBatchStatus, loadAllTx, loadAllBatchTx, allBatchSelector,allTxSelector, summaryStatus, summarySelector, loadSummary, loadHistogramDeposit,loadHistogramWithdraw, depHistoStatus, depHistoSelector, withdrHistoSelector, withdrHistoStatus } from './store/features/dataSlice';
-import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers, Footer } from './containers';
+import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers, Footer, TermsConditions } from './containers';
 import {routes} from './routes';
 import appHistory from './app.history';
 
@@ -75,6 +75,8 @@ function App() {
             <Route path = {routes.batch_transfers} component = {BatchTransfers} />
 
             <Route path = {routes.address} component = {Address} />
+            
+            <Route path = {routes.terms} component = {TermsConditions} />
 
             <Route exact path = {routes.app} render = {(props) => 
               <Home {...props} txData = {txData} batchData = {batchTxData}
