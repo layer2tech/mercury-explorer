@@ -134,9 +134,9 @@ export const tableTitles = (title : string) => {
         case "inserted_at":
             return "Inserted"
         case "updated_at":
-            return "updated"
+            return "Updated"
         case "finalized_at":
-            return "Finished"
+            return "Finalized"
         case "total_coins":
             return "Coins Volume"
         case "total_deposit":

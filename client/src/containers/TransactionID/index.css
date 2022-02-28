@@ -6,6 +6,7 @@
 .address .txid-page .table-container .title{
     padding-top: 55px;
 }
+
 .address .txid-page .table-container .arrow{
     transform: rotate(135deg);
     height: 55px;

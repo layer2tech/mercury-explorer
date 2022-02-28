@@ -5,7 +5,6 @@ import swapIcon from '../../images/swap_icon-blue.svg';
 import './index.css';
 
 const Home = (props) => {
-
     return(
         <div className = "home-container">
             {props.summaryStatus === "fulfilled" ?
@@ -13,8 +12,8 @@ const Home = (props) => {
                 <div className = "icon-container"><img src = {btcIcon} alt = "summary-btc" /> Summary</div>
             } data = {props.summaryData} /> : null}
             <Histogram title = "Coin Liquidity"/>
-            { props.txStatus === "fulfilled" ?<TableColumns title = "Transactions" img = {txidIcon} data = {props.txData}/> : null }
-            { props.batchStatus === "fulfilled" ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = {props.batchData}/> : null }
+            { props.txStatus === "fulfilled" ? <TableColumns title = "Transactions" img = {txidIcon} data = { props.txData } home/> : null }
+            { props.batchStatus === "fulfilled" ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = { props.batchData } home /> : null }
         </div>
     )
 }

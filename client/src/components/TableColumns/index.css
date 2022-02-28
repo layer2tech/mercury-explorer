@@ -20,6 +20,13 @@
     font-size: 1.75rem;
 }
 
+.Swap .table-container h1.table-title{
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .flex-table{
     margin-bottom: 0.7rem!important;
 }
@@ -27,6 +34,8 @@
     border-collapse: collapse;
     width: 100%;
     margin-top: 20px;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .main table {
@@ -87,6 +96,12 @@ table, tbody{
 #table tbody .link{
     text-decoration:none;
     color: #009cff;
+    padding: 0 12%;
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #table tbody .link:hover{

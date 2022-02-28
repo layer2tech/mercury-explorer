@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { tableTitles } from '../../store/features/dataSlice';
 
@@ -6,7 +7,16 @@ import './index.css';
 // Data in table headers
 
 const TableColumns = (props) => {
+    const [data, setData] = useState(props.data)
 
+    useEffect(()=> {
+        
+        if( props.home && data.length > 10){
+            console.log('Cutting data')
+            setData(data.slice(-7,-1))
+        }
+    },[data])
+    
     return(
     <div className = "table-component-holder column-table">
         <div className = "table-container">
@@ -17,14 +27,15 @@ const TableColumns = (props) => {
                 <table width="100%" id="table">
                     <thead>
                         <tr>{/* Change key for more readable format */}
-                            {Object.keys(props.data[0]).map(key =>
-                                key !== "id" && key !== "_id" ? <th>{tableTitles(key)}</th> : null
+                            {Object.keys(data[0]).map(key =>
+                                key !== "id" && key !== "_id" ? <th key = {key}>{tableTitles(key)}</th> : null
                             
                             )}
                         </tr>
                     </thead>
                     <tbody>
-                    {props.data.map((item) =>
+                        {console.log(props.title, data)}
+                    {data.map((item) =>
                         (item.batch_id !== undefined) ? (
                             <tr key={item.batch_id}>
                                 <td>
@@ -55,6 +66,7 @@ const TableColumns = (props) => {
                                 >
                                     {item.txid_vout}
                                 </Link>
+                                {console.log(item)}
                             </td>
                             <td>
                                 <Link
@@ -72,10 +84,12 @@ const TableColumns = (props) => {
                     )}
                     </tbody>
                 </table>
-                
                 {(props.title === "Batch Transfers" || props.title === "Transactions") && 
-                    props.data.length < 6 ?
+                    data.length > 5 &&
+                    !window.location.href.includes("swap") &&
+                    !window.location.href.includes("tx")?
                 (<div className = "see-more">
+                    
                     <Link className = "see-more-link"
                         to = {props.title === "Transactions" ? '/tx': '/swap'}
                         >

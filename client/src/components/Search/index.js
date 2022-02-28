@@ -21,11 +21,11 @@ const Search = (props) => {
         event.preventDefault();
         setWrongSearchValue(false);
 
-        if(["sc","bc","tb"].includes(value.substring(0,2))){
+        if(["sc","bc","tb","tc"].includes(value.substring(0,2))){
             history.push(`/address/${value}`)
         }
         
-        else if([":1",":0"].includes(value.substring(value.length-2,value.length))){
+        else if(value.includes(":")){
             history.push(`/tx/${value}`)
         }
 
@@ -34,8 +34,6 @@ const Search = (props) => {
         }
 
     }
-
-
 
     return(
         <div className = "search" >

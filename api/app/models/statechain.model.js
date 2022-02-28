@@ -1,8 +1,8 @@
 module.exports = mongoose => {
   var schema = new mongoose.Schema({
-    statechain_id:{ type:String, index: true },
+    statechain_id:{ type:String, index: true, unique: true },
     user_id:{ type: Number, default:0, index: true },
-    txid_vout: { type: String, lowercase: true, unique: true, index: true },
+    txid_vout: { type: String, lowercase: true, index: true },
     amount: { type: Number, default: 0, index: true },
     chain: { type: Object, index: true },
     sharedpub: { type: String, index: true },

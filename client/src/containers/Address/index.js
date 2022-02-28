@@ -45,7 +45,7 @@ const Address = (props) => {
                             inserted_at: item.inserted_at,
                             confirmed: item.confirmed
                         }
-                        return (<TableRows data = {[dataResults]} title = {`Event: ${event}`} />)
+                        return (<TableRows key = {item.txid_vout}  data = {[dataResults]} title = {`Event: ${event}`} />)
                     }) : null}
                 </div>
             </div> : (

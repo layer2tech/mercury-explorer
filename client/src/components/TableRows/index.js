@@ -42,7 +42,7 @@ const TableRows = (props) => {
                                     </td>
                                 ):(
                                     <td>
-                                        <span className="text-right ml-1">{key === "total_deposit" ||  key === "total_withdrawn" ? fromSatoshi(value) :value}</span>    
+                                        <span className="text-right ml-1">{key === "total_deposit" ||  key === "total_withdrawn" ? fromSatoshi(value) : `${value}`}</span>    
                                     </td>
                                 ))}
                                 

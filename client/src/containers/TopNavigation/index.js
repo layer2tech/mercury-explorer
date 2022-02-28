@@ -75,7 +75,7 @@ const TopNavigation = () => {
                     <div className="menu-item">
                         <Link 
                             className = "link"
-                            to = {"/tx"}
+                            to = {"/swap"}
                             onClick={() =>setOpen(false)}
                             target="_blank">
                             Batch Transfers

@@ -1,14 +1,20 @@
 const dbConfig = require("../config/db.config.js");
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
-const db = {};
-db.mongoose = mongoose;
-db.url = dbConfig.url;
+mongoose.connect(dbConfig.uri,{ useUnifiedTopology: true, useNewUrlParser: true });
+
+// var mongoose = require('mongoose')
+// mongoose.connect(dbConfig.url, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+
+var db = mongoose.connection
 
 // add models
 db.statechains = require("./statechain.model.js")(mongoose);
 db.transactions = require('./transaction.model.js')(mongoose);
-db.batchtransfers = require('./batchtransfer.model.js')(mongoose)
+db.batchtransfers = require('./batchtransfer.model.js')(mongoose);
 
 module.exports = db;

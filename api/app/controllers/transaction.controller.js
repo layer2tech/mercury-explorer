@@ -12,7 +12,7 @@ exports.findAllTransactions = (req,res) => {
         '$project': {
           'txid_vout': '$txid_vout', 
           'address': '$address', 
-          'inserted_at': '$inserted_at'
+          'inserted_at': {'$toDate': '$inserted_at'}
         }
       }
   ]
@@ -56,7 +56,7 @@ exports.findByTxID = (req,res) => {
           'locktime': '$locktime', 
           'confirmed': '$statechains.confirmed', 
           'chain': '$statechains.chain', 
-          'updated_at': '$statechains.updated_at'
+          'updated_at': {'$toDate': '$inserted_at'}
         }
       }
   ]
@@ -95,7 +95,7 @@ exports.findByAddress = (req,res) => {
         '$project': {
             'address': '$address', 
             'event': '$event', 
-            'inserted_at': '$inserted_at', 
+            'inserted_at': {'$toDate': '$inserted_at'}, 
             'amount': '$amount', 
             'locktime': '$locktime', 
             'txid_vout': '$txid_vout', 

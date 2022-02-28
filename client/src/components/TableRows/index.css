@@ -81,6 +81,14 @@ table, tbody{
 #table tbody .link{
     text-decoration:none;
     color: #009cff;
+    padding: 0 12%;
+    /* width: 65px; */
+    display: block;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #table tbody .link:hover{

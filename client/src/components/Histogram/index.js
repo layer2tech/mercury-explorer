@@ -63,7 +63,7 @@ const Histogram = (props) => {
             <h1 className = "histogram-title" >
                 {props.title}
             </h1> 
-            <Bar data = {data}
+            {data ? (<Bar data = {data}
                 options={{
                     plugins: {
                         legend: {
@@ -84,7 +84,7 @@ const Histogram = (props) => {
                             }]
                         }
                     }}}
-                className = "bar-chart"/>
+                className = "bar-chart"/>) : null }
         </div>
     </div>
     )

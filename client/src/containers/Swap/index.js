@@ -30,7 +30,6 @@ const Swap = (props) => {
         }
     },[data,batchStatus,batch_id,dispatch])
 
-
     return(
         <div>
             { data.length !== 0 ?
@@ -51,7 +50,8 @@ const Swap = (props) => {
                             className = "link tx-link">
                                 {`TxID: ${tx.txid_vout}`}
                             </Link>}
-                        data = {[tableData]} />                    
+                        data = {[tableData]} 
+                        key= {tx.txid_vout}/>                    
                 )})}
             </div> : <EmptySearch />}
         </div>
