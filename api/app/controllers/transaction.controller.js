@@ -246,11 +246,7 @@ exports.getSummary = (req,res) => {
 
 exports.getDepositHistogram = (req,res) => {
   const pipeline = [
-    {
-      '$match': {
-        'event': 'DEPOSIT'
-      }
-    }, {
+  {
       '$group': {
         '_id': '$amount', 
         'count': {
