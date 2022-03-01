@@ -29,7 +29,7 @@ const Footer = () => (
         <div className="image-copyright">
             <div className="m-auto">
                 <Logo2 />
-                <span>© 2021 CommerceBlock Limited. All rights reserved.</span>
+                <span>© 2022 Mercury Wallet Team. All rights reserved.</span>
             </div>
         </div>
         <CookieConsent
