@@ -119,10 +119,6 @@ exports.findByAddress = (req,res) => {
 exports.getSummary = (req,res) => {
   const pipeline = [
     {
-      '$match': {
-        'event': 'DEPOSIT'
-      }
-    }, {
       '$group': {
         '_id': 1, 
         'total_deposit': {
@@ -146,28 +142,20 @@ exports.getSummary = (req,res) => {
         'transactions.event': 'WITHDRAWAL'
       }
     }, {
-      '$project': {
-        'total_deposit': '$total_deposit', 
-        'deposited_coins': '$deposited_coins', 
+      '$group': {
+        '_id': 1, 
+        'total_deposit': {
+          '$first': '$total_deposit'
+        }, 
+        'deposited_coins': {
+          '$first': '$deposited_coins'
+        }, 
         'total_withdrawn': {
           '$sum': '$transactions.amount'
         }, 
         'withdrawn_coins': {
           '$sum': 1
         }
-      }
-    }, {
-      '$lookup': {
-        'from': 'transactions', 
-        'localField': 'string', 
-        'foreignField': 'string', 
-        'as': 'transactions'
-      }
-    }, {
-      '$unwind': '$transactions'
-    }, {
-      '$match': {
-        'transactions.event': 'TRANSFER'
       }
     }, {
       '$group': {
@@ -183,9 +171,6 @@ exports.getSummary = (req,res) => {
         }, 
         'withdrawn_coins': {
           '$first': '$withdrawn_coins'
-        }, 
-        'total_transfers': {
-          '$sum': 1
         }
       }
     }, {
@@ -208,7 +193,7 @@ exports.getSummary = (req,res) => {
         }, 
         'total_deposit': '$total_deposit', 
         'total_withdrawn': '$total_withdrawn', 
-        'total_transfers': '$total_transfers'
+        'deposited_coins': '$deposited_coins'
       }
     }, {
       '$group': {
@@ -222,8 +207,8 @@ exports.getSummary = (req,res) => {
         'total_withdrawn': {
           '$first': '$total_withdrawn'
         }, 
-        'total_transfers': {
-          '$first': '$total_transfers'
+        'deposited_coins': {
+          '$first': '$deposited_coins'
         }, 
         'total_swapped': {
           '$sum': 1

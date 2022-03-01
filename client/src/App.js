@@ -57,7 +57,6 @@ function App() {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
   })
-
   return (
     <Router history = {appHistory} >
       <div className = "App">

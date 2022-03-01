@@ -143,8 +143,8 @@ export const tableTitles = (title : string) => {
             return "Total Deposited (BTC)"
         case "total_withdrawn":
             return "Total Withdrawn (BTC)"
-        case "total_transfers":
-            return "Total Transfers"
+        case "deposited_coins":
+            return "Statecoins Deposited"
         case "total_swapped":
             return "Total Swapped"
         default:

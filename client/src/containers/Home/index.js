@@ -12,8 +12,8 @@ const Home = (props) => {
                 <div className = "icon-container"><img src = {btcIcon} alt = "summary-btc" /> Summary</div>
             } data = {props.summaryData} /> : null}
             <Histogram title = "Coin Liquidity"/>
-            { props.txStatus === "fulfilled" ? <TableColumns title = "Transactions" img = {txidIcon} data = { props.txData } home/> : null }
-            { props.batchStatus === "fulfilled" ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = { props.batchData } home /> : null }
+            { props.txStatus === "fulfilled" ? <TableColumns title = "Transactions" img = {txidIcon} data = { props.txData.slice(-7,-1) } home/> : null }
+            { props.batchStatus === "fulfilled" ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = { props.batchData.slice(-7,-1) } home /> : null }
         </div>
     )
 }

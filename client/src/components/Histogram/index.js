@@ -25,8 +25,10 @@ const Histogram = (props) => {
 
                 if( coin.count ) withdrawCount += coin.count
             })
-            
-            histogram.push({value: item._id, count: (item.count - withdrawCount)})
+            let count = item.count - withdrawCount
+            if(count >=4){
+                histogram.push({value: item._id, count: (item.count - withdrawCount)})
+            }
         })
 
 

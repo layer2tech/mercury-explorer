@@ -2,7 +2,7 @@ import './index.css';
 import {Link} from 'react-router-dom';
 import { Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from 'reactstrap';
 import { Squash as Hamburger } from 'hamburger-react'
-import CheeseBurgerMenu from 'cheeseburger-menu';
+import { slide as Menu } from 'react-burger-menu';
 import { Search } from '../../components';
 import { Logo } from '../../images/Logo';
 import { useState } from 'react';
@@ -41,10 +41,10 @@ const TopNavigation = () => {
                 </Navbar>
 
             </div>
-            <CheeseBurgerMenu isOpen = {isOpen}
-                        closeCallback = {()=> setOpen(false)}
-                        
-                        backgroundColor={"#E7E7E7"}>
+            <Menu isOpen = {isOpen}
+                closeCallback = {() => setOpen(false)}
+                customBurgerIcon={ false }
+                backgroundColor={"#E7E7E7"}>
                 <div className="menu">
 
                     <div className = "menu-item search">
@@ -82,7 +82,7 @@ const TopNavigation = () => {
                         </Link>
                     </div>
                 </div>
-            </CheeseBurgerMenu>
+            </Menu>
         </div>
     )
 }
