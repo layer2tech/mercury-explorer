@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://hardcore-jennings-0a8aaa.netlify.app"
 };
 
 
