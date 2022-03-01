@@ -8,9 +8,9 @@ import './index.css';
 const Footer = () => (
     <footer className = "footer-container">
         <div className="links">
-            <div className="footer-list-item">
+            {/* <div className="footer-list-item">
                 <Link to={routes.about}>About</Link>
-            </div>
+            </div> */}
             {/*<div className="footer-list-item">*/}
             {/*    <Link to={routes.pricing}>Pricing</Link>*/}
             {/*</div>*/}

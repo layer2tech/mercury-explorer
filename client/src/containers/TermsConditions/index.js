@@ -2,8 +2,7 @@ import { ContainerTitle } from "../../components";
 
 const TermsConditions = () => {
     return(
-    <div className="content">
-        <span className="title">Terms of Use</span>
+    <div className="content terms-of-use">
         <ContainerTitle title = {'Terms of Use'}  />
 
         <div className = "table-component-holder">

@@ -1,0 +1,12 @@
+.terms-of-use .container-title-container {
+    justify-content: center;
+}
+
+.terms-of-use .container-title-container .title {
+    font-size: 2rem;
+}
+
+.terms-of-use p{
+
+    margin-bottom: 12px; ;
+}
