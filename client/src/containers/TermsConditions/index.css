@@ -1,12 +1,14 @@
-.terms-of-use .container-title-container {
-    justify-content: center;
+.container-title-container {
+    justify-content: center!important;
 }
 
-.terms-of-use .container-title-container .title {
+.content.terms-of-use .container-title-container .title {
     font-size: 2rem;
 }
+h1{
+    color: red;
+}
 
-.terms-of-use p{
-
-    margin-bottom: 12px; ;
+.content.terms-of-use p{
+    margin-bottom: 12px; 
 }

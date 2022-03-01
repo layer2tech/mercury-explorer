@@ -2,7 +2,7 @@ import './index.css';
 import {Link} from 'react-router-dom';
 import { Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem } from 'reactstrap';
 import { Squash as Hamburger } from 'hamburger-react'
-//import CheeseBurgerMenu from 'cheeseburger-menu';
+import CheeseBurgerMenu from 'cheeseburger-menu';
 import { Search } from '../../components';
 import { Logo } from '../../images/Logo';
 import { useState } from 'react';
@@ -41,7 +41,7 @@ const TopNavigation = () => {
                 </Navbar>
 
             </div>
-            {/* <CheeseBurgerMenu isOpen = {isOpen}
+            <CheeseBurgerMenu isOpen = {isOpen}
                         closeCallback = {()=> setOpen(false)}
                         
                         backgroundColor={"#E7E7E7"}>
@@ -82,7 +82,7 @@ const TopNavigation = () => {
                         </Link>
                     </div>
                 </div>
-            </CheeseBurgerMenu> */}
+            </CheeseBurgerMenu>
         </div>
     )
 }
