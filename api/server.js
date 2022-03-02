@@ -3,13 +3,6 @@ const cors = require("cors");
 
 const app = express();
 
-const https = require('https');
-const fs = require('fs');
-
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-};
 
 var corsOptions = {
   origin: "http://localhost:3000"
@@ -39,5 +32,3 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-https.createServer(options, app).listen(443);
