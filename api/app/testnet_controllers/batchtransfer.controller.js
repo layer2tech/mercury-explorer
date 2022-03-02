@@ -1,4 +1,4 @@
-const db = require("../testnet_models");
+const db = require("../models");
 const BatchTransfer = db.batchtransfers_testnet;
 
 exports.create = (req, res) => {
@@ -45,13 +45,13 @@ exports.findByBatchID = (req,res) => {
   const pipeline =[
     {
       '$match': {
-        'batch_id': id
+        'batch_id': '3305a422-6245-4219-b164-8b7f9738685d'
       }
     }, {
       '$unwind': '$statechains'
     }, {
       '$lookup': {
-        'from': 'statechains', 
+        'from': 'statechains_tests', 
         'localField': 'statechains', 
         'foreignField': 'statechain_id', 
         'as': 'tx'
@@ -60,7 +60,7 @@ exports.findByBatchID = (req,res) => {
       '$unwind': '$tx'
     }, {
       '$lookup': {
-        'from': 'transactions', 
+        'from': 'transactions_tests', 
         'localField': 'tx.txid_vout', 
         'foreignField': 'txid_vout', 
         'as': 'transactions'
@@ -72,7 +72,9 @@ exports.findByBatchID = (req,res) => {
         'batch_id': '$batch_id', 
         'txid_vout': '$tx.txid_vout', 
         'amount': '$tx.amount', 
-        'updated_at': {'$toDate': '$tx.updated_at'},
+        'updated_at': {
+          '$toDate': '$tx.updated_at'
+        }, 
         'address': '$transactions.address'
       }
     }

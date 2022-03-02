@@ -17,6 +17,17 @@
     border-radius: 4px;
 }
 
+@media only screen and (min-width: 1500px) {
+    .histogram-container{
+        max-height:9000px!important;
+    }
+}
+@media only screen and (min-width: 1350px) {
+    .histogram-container{
+        max-height:460px;
+    }
+}
+
 .histogram-container h1.histogram-title{
     margin-bottom: 34px;
     padding-left: 34px;

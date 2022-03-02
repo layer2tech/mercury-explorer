@@ -1,4 +1,4 @@
-const db = require("../testnet_models");
+const db = require("../models");
 const Statechain = db.statechains_testnet;
 
 exports.create = (req, res) => {

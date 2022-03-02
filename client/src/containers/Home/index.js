@@ -5,6 +5,7 @@ import swapIcon from '../../images/swap_icon-blue.svg';
 import './index.css';
 
 const Home = (props) => {
+    console.log(props.summaryData)
     return(
         <div className = "home-container">
             {props.summaryStatus === "fulfilled" ?

@@ -1,4 +1,4 @@
-const db = require("../testnet_models");
+const db = require("../models");
 const Transaction = db.transactions_testnet;
 
 exports.create = (req, res) => {
@@ -40,13 +40,13 @@ exports.findByTxID = (req,res) => {
         }
       }, {
         '$lookup': {
-          'from': 'statechains', 
+          'from': 'statechains_tests', 
           'localField': 'txid_vout', 
           'foreignField': 'txid_vout', 
-          'as': 'statechains'
+          'as': 'statechains_tests'
         }
       }, {
-        '$unwind': '$statechains'
+        '$unwind': '$statechains_tests'
       }, {
         '$project': {
           'txid_vout': '$txid_vout', 
@@ -54,8 +54,8 @@ exports.findByTxID = (req,res) => {
           'event': '$event', 
           'amount': '$amount', 
           'locktime': '$locktime', 
-          'confirmed': '$statechains.confirmed', 
-          'chain': '$statechains.chain', 
+          'confirmed': '$statechains_tests.confirmed', 
+          'chain': '$statechains_tests.chain', 
           'updated_at': {'$toDate': '$inserted_at'}
         }
       }
@@ -84,13 +84,13 @@ exports.findByAddress = (req,res) => {
         }
     }, {
         '$lookup': {
-            'from': 'statechains', 
+            'from': 'statechains_tests', 
             'localField': 'txid_vout', 
             'foreignField': 'txid_vout', 
-            'as': 'statechains'
+            'as': 'statechains_tests'
         }
     }, {
-        '$unwind': '$statechains'
+        '$unwind': '$statechains_tests'
     }, {
         '$project': {
             'address': '$address', 
@@ -99,7 +99,7 @@ exports.findByAddress = (req,res) => {
             'amount': '$amount', 
             'locktime': '$locktime', 
             'txid_vout': '$txid_vout', 
-            'confirmed': '$statechains.confirmed'
+            'confirmed': '$statechains_tests.confirmed'
         }
     }
   ];
@@ -130,16 +130,16 @@ exports.getSummary = (req,res) => {
       }
     }, {
       '$lookup': {
-        'from': 'transactions', 
+        'from': 'transactions_tests', 
         'localField': 'string', 
         'foreignField': 'string', 
-        'as': 'transactions'
+        'as': 'transactions_tests'
       }
     }, {
-      '$unwind': '$transactions'
+      '$unwind': '$transactions_tests'
     }, {
       '$match': {
-        'transactions.event': 'WITHDRAWAL'
+        'transactions_tests.event': 'WITHDRAWAL'
       }
     }, {
       '$group': {
@@ -151,7 +151,7 @@ exports.getSummary = (req,res) => {
           '$first': '$deposited_coins'
         }, 
         'total_withdrawn': {
-          '$sum': '$transactions.amount'
+          '$sum': '$transactions_tests.amount'
         }, 
         'withdrawn_coins': {
           '$sum': 1
@@ -175,15 +175,13 @@ exports.getSummary = (req,res) => {
       }
     }, {
       '$lookup': {
-        'from': 'batchtransfers', 
+        'from': 'batchtransfers_tests', 
         'localField': 'string', 
         'foreignField': 'string', 
-        'as': 'batchtransfers'
+        'as': 'batchtransfers_tests'
       }
     }, {
-      '$unwind': '$batchtransfers'
-    }, {
-      '$unwind': '$batchtransfers.statechains'
+      '$unwind': '$batchtransfers_tests'
     }, {
       '$project': {
         'total_coins': {
