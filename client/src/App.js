@@ -86,7 +86,7 @@ function App() {
               <Home {...props} txData = {txData} batchData = {batchTxData}
                 batchStatus = {batchStatus} txStatus = {txStatus} 
                 summaryData = {summaryData} summaryStatus = {summaryStat}/>}/> */}
-            <div><h1> Coming soon ... </h1></div>
+            <div><h1 className='coming-soon'> Coming soon ... </h1></div>
           </Switch>
         </div>
         {/* <Footer /> */}
