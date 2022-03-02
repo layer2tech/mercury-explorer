@@ -65,7 +65,7 @@ function App() {
         </div>
         <div className = "main">
           <Switch>
-            <Route path = {routes.txid} component = {TransactionID} />
+            {/* <Route path = {routes.txid} component = {TransactionID} />
 
             <Route path = {routes.transactions} component = {Transactions} />
 
@@ -85,10 +85,11 @@ function App() {
             <Redirect from = "*" to = {routes.app} render = {(props) => 
               <Home {...props} txData = {txData} batchData = {batchTxData}
                 batchStatus = {batchStatus} txStatus = {txStatus} 
-                summaryData = {summaryData} summaryStatus = {summaryStat}/>}/>
+                summaryData = {summaryData} summaryStatus = {summaryStat}/>}/> */}
+            <div><h1> Coming soon ... </h1></div>
           </Switch>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

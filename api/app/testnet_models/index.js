@@ -7,8 +7,8 @@ mongoose.connect(dbConfig.test_uri,{ useUnifiedTopology: true, useNewUrlParser: 
 var db = mongoose.connection
 
 // add models
-db.statechains = require("./statechain.model.js")(mongoose);
-db.transactions = require('./transaction.model.js')(mongoose);
-db.batchtransfers = require('./batchtransfer.model.js')(mongoose);
+db.statechains_testnet = require("./statechain.model.js")(mongoose);
+db.transactions_testnet = require('./transaction.model.js')(mongoose);
+db.batchtransfers_testnet = require('./batchtransfer.model.js')(mongoose);
 
 module.exports = db;

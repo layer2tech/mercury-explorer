@@ -6,12 +6,11 @@ module.exports = mongoose => {
   }, {id: false});
 
   schema.method("toJSON", function() {
-    console.log(this.toObject())
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;
   });
 
-  const Batchtransfer = mongoose.model("batchtransfers", schema);
-  return Batchtransfer;
+  const BatchtransferTestnet = mongoose.model("batchtransfers_test", schema);
+  return BatchtransferTestnet;
 };

@@ -19,8 +19,11 @@ app.get("/", (req, res) => {
 });
 
 // require("./app/routes/statechain.routes")(app);
+require('./app/testnet_routes/transaction.routes')(app);
+require('./app/testnet_routes/batchtransfer.routes')(app);
 require('./app/routes/transaction.routes')(app);
-require('./app/routes/batchtransfer.routes')(app);
+//require('./app/routes/batchtransfer.routes')(app);
+
 
 
 // start server

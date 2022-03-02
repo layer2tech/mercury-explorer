@@ -23,9 +23,9 @@ const TopNavigation = () => {
                         <Logo />
                     </NavbarBrand>
 
-                    {/* <NavbarToggler onClick={toggleNavbarHandler}/> */}
+                    {/* <NavbarToggler onClick={toggleNavbarHandler}/>  DONT UNCOMMENT THIS*/}
 
-                    <Collapse navbar>
+                    {/* <Collapse navbar>
 
                         <Nav className="ml-auto d-flex justify-content-end" navbar>
                             <NavItem className="search-item " id="top-search">
@@ -37,7 +37,7 @@ const TopNavigation = () => {
                     </Collapse>
                     <Hamburger rounded label = "Show menu"
                         toggled={isOpen} toggle={setOpen}
-                        size = {34}/>
+                        size = {34}/> */}
                 </Navbar>
 
             </div>

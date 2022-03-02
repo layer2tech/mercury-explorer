@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 
-const { API } = process.env;
+const { REACT_APP_API } = process.env;
 
 
 export interface DataValue {
@@ -74,43 +74,42 @@ export const allTxStatus = (state: RootState) => state.data.tx_status
 // Redux Counter example:
 
 export const loadSummary = createAsyncThunk('data/loadSummary', async () => {
-    console.log(API)
-    const response = await axios.get(`http://108.61.117.115:8000/api/summary`)
+    const response = await axios.get(`${REACT_APP_API}/api/summary`)
     return response.data
 })
 
 export const loadHistogramDeposit = createAsyncThunk('data/loadHistogramDeposit', async () => {
-    const response = await axios.get(`http://108.61.117.115:8000/api/histo/deposit`)
+    const response = await axios.get(`${REACT_APP_API}/api/histo/deposit`)
     return response.data
 })
 
 export const loadHistogramWithdraw = createAsyncThunk('data/loadHistogramWithdraw', async () => {
-    const response = await axios.get(`http://108.61.117.115:8000/api/histo/withdraw`)
+    const response = await axios.get(`${REACT_APP_API}/api/histo/withdraw`)
     return response.data
 })
 
 export const loadAllBatchTx = createAsyncThunk('data/loadAllBatchTx', async () => {
-    const response = await axios.get("http://108.61.117.115:8000/api/swap")
+    const response = await axios.get(`${REACT_APP_API}/api/swap`)
     return response.data
 })
 
 export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
-    const response = await axios.get("http://108.61.117.115:8000/api/tx")
+    const response = await axios.get(`${REACT_APP_API}/api/tx`)
     return response.data
 })
 
 export const loadAddress = createAsyncThunk('data/loadAddress', async (address) => {
-    const response = await axios.get(`http://108.61.117.115:8000/api/address/${address}`)
+    const response = await axios.get(`${REACT_APP_API}/api/address/${address}`)
     return [response.data, address]
 })
 
 export const loadBatchTx = createAsyncThunk('data/loadBatchTx', async (batch_id) => {
-    const response = await axios.get(`http://108.61.117.115:8000/api/swap/${batch_id}`)
+    const response = await axios.get(`${REACT_APP_API}/api/swap/${batch_id}`)
     return [response.data, batch_id]
 })
 
 export const loadTx = createAsyncThunk('data/loadTx', async (txid) => {
-    const response = await axios.get(`http://108.61.117.115:8000/api/tx/${txid}`)
+    const response = await axios.get(`${REACT_APP_API}/api/tx/${txid}`)
     return [response.data, txid]
 })
 
