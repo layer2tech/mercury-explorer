@@ -10,8 +10,5 @@ var db = mongoose.connection
 db.statechains = require("./statechain.model.js")(mongoose);
 db.transactions = require('./transaction.model.js')(mongoose);
 db.batchtransfers = require('./batchtransfer.model.js')(mongoose);
-db.statechains_testnet = require("./testnet_statechain.model.js")(mongoose);
-db.transactions_testnet = require('./testnet_transaction.model.js')(mongoose);
-db.batchtransfers_testnet = require('./testnet_batchtransfer.model.js')(mongoose);
 
 module.exports = db;
