@@ -3,7 +3,13 @@ const cors = require("cors");
 
 const app = express();
 
+const https = require('https');
+const fs = require('fs');
 
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
 // var corsOptions = {
 //   origin: "https://testnet-mercury-explorer.netlify.app"
 // };
@@ -20,7 +26,6 @@ var corsOptions = {
   }
 }
  
-
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -44,3 +49,5 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+https.createServer(options, app).listen(443); 
