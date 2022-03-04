@@ -4,9 +4,22 @@ const cors = require("cors");
 const app = express();
 
 
+// var corsOptions = {
+//   origin: "https://testnet-mercury-explorer.netlify.app"
+// };
+
+var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet-explorer.mercurywallet.com"]
+
 var corsOptions = {
-  origin: "https://testnet-mercury-explorer.netlify.app"
-};
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+ 
 
 
 app.use(cors(corsOptions));
