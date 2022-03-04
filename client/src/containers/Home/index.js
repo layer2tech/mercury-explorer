@@ -8,7 +8,7 @@ const Home = (props) => {
 
     return(
         <div className = "home-container">
-            {props.summaryStatus === "fulfilled" && props.summaryData > 8 ?
+            {props.summaryStatus === "fulfilled" && props.summaryData.length > 0 ?
                 <TableRows title = {
                 <div className = "icon-container"><img src = {btcIcon} alt = "summary-btc" /> Summary</div>
             } data = {props.summaryData} /> : null}
