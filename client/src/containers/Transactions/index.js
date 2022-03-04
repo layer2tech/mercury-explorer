@@ -12,7 +12,7 @@ const Transactions = (props) => {
     return(
     <div className = "transactions">
         <div>
-            {txStatus === "fulfilled" ? <TableColumns data = {txData} title = "Transactions" img={txidIcon}/> : null}
+            {txStatus === "fulfilled" && txData.length > 0? <TableColumns data = {txData} title = "Transactions" img={txidIcon}/> : null}
         </div>
     </div>
     )

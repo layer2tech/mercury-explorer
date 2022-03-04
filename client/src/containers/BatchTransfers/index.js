@@ -20,7 +20,7 @@ const BatchTransfers = (props) => {
     return(
         <div className = "batch-transfers">
             <div>
-                { batchStatus === "fulfilled" ? <TableColumns data = {batchData} title = "Batch Transfers" img = {swapIcon}/> : null }
+                { batchStatus === "fulfilled" && batchData.length > 0 ? <TableColumns data = {batchData} title = "Batch Transfers" img = {swapIcon}/> : null }
             </div>
         </div>
     )
