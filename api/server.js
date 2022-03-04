@@ -5,7 +5,7 @@ const app = express();
 
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://testnet-mercury-explorer.netlify.app"
 };
 
 
