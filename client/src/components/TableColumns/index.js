@@ -37,14 +37,13 @@ const TableColumns = (props) => {
                                         {item.batch_id}
                                     </Link>
                                 </td>
-
+                                <td>
+                                    <span className="text-right ml-1">{item.finalized_at}</span>
+                                </td>
                                 <td>
                                     <span className="text-right ml-1">{item.statechains.length}</span>
                                 </td>
                                 
-                                <td>
-                                    <span className="text-right ml-1">{item.finalized_at}</span>
-                                </td>
                             </tr>
                         ) : (                            
                         <tr key={item.txid_vout}>

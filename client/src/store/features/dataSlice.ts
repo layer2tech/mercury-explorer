@@ -134,11 +134,14 @@ export const tableTitles = (title : string) => {
         case "statechains":
             return "Swap Size"
         case "inserted_at":
-            return "Inserted"
+            //return "Inserted"
+            return "Last Updated"
         case "updated_at":
-            return "Updated"
+            //return "Updated"
+            return "Last Updated"
         case "finalized_at":
-            return "Finalized"
+            //return "Finalized"
+            return "Last Updated"
         case "total_coins":
             return "Coins Volume"
         case "total_deposit":
