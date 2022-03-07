@@ -14,7 +14,7 @@ const options = {
 //   origin: "https://testnet-mercury-explorer.netlify.app"
 // };
 
-var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet-explorer.mercurywallet.com", "http://localhost:3000"]
+var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet.explorer.mercurywallet.com", "http://localhost:3000"]
 
 var corsOptions = {
   origin: function (origin, callback) {
