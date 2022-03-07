@@ -86,6 +86,7 @@ function App() {
               <Home {...props} txData = {txData} batchData = {batchTxData}
                 batchStatus = {batchStatus} txStatus = {txStatus} 
                 summaryData = {summaryData} summaryStatus = {summaryStat}/>}/>
+            <Route component = {Home} />
             {/* <div><h1 className='coming-soon'> Coming soon ... </h1></div> */}
           </Switch>
         </div>

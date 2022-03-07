@@ -57,9 +57,8 @@ const TopNavigation = () => {
                     <div className="menu-item">
                         <Link 
                             className = "link"
-                            to = {"/Home"}
-                            onClick={() =>setOpen(false)}
-                            target="_blank">
+                            to = {"/"}
+                            onClick={() =>setOpen(false)} >
                             Home
                         </Link>
                     </div>
@@ -67,8 +66,7 @@ const TopNavigation = () => {
                         <Link 
                             className = "link"
                             to = {"/tx"}
-                            onClick={() =>setOpen(false)}
-                            target="_blank">
+                            onClick={() =>setOpen(false)} >
                             Transactions
                         </Link>
                     </div>
@@ -76,8 +74,7 @@ const TopNavigation = () => {
                         <Link 
                             className = "link"
                             to = {"/swap"}
-                            onClick={() =>setOpen(false)}
-                            target="_blank">
+                            onClick={() =>setOpen(false)} >
                             Batch Transfers
                         </Link>
                     </div>
