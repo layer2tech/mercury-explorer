@@ -32,6 +32,11 @@
     }    
 }
 
+.icon-container{
+    display: flex;
+    align-items: center;
+}
+
 .icon-container img{
     margin-right: 8px;
     margin-bottom: 8px;
