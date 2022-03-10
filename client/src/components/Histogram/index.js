@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 
 import './index.css';
 
-import { depHistoSelector,withdrHistoSelector, fromSatoshi } from '../../store/features/dataSlice';
+import { depHistoSelector,withdrHistoSelector, fromSatoshi, depHistoStatus, withdrHistoStatus } from '../../store/features/dataSlice';
 import { useEffect, useState } from 'react';
 
 // Data in table headers
@@ -14,23 +14,24 @@ const Histogram = (props) => {
     const [data,setData] = useState()
     const withdrawHistoData = useSelector(withdrHistoSelector)
     const depositHistoData = useSelector(depHistoSelector)
+    const depositHistoStatus = useSelector(depHistoStatus)
+    const withdrawHistoStatus = useSelector(withdrHistoStatus)
 
     useEffect(()=> {
         let withdrawCount = 0
         let histogram = []
-        
-        depositHistoData.map(item => {
-            let withdrawTotal = withdrawHistoData.filter(value => value._id === item._id)
-            withdrawTotal.map(coin => {
-
-                if( coin.count ) withdrawCount += coin.count
+        if(depositHistoStatus === "fulfilled" && withdrawHistoStatus === "fulfilled"){
+            depositHistoData.map(item => {
+                let withdrawTotal = withdrawHistoData.filter(value => value._id === item._id)
+                console.log(withdrawTotal)
+                if(item.count >=4 && withdrawTotal[0]){
+                    histogram.push({value: item._id, count: (item.count - withdrawTotal[0].count)})
+                }
+                else if(item.count >=4 ){
+                    histogram.push({value: item._id, count: (item.count)})
+                }
             })
-            let count = item.count - withdrawCount
-            if(count >=4){
-                histogram.push({value: item._id, count: (item.count - withdrawCount)})
-            }
-        })
-
+        }
 
         setData({
             labels: histogram.map(item => fromSatoshi(item.value)),
