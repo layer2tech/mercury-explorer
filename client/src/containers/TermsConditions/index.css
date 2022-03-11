@@ -1,0 +1,61 @@
+.terms-of-use .container{
+    width:80%;
+    text-align: left;
+    padding-bottom: 12%;
+    padding-top: 6%;
+}
+
+.terms-of-use .table-container{
+    background-color: #121212;
+}
+
+.terms-of-use .container .header h1 {
+    font-size: 5rem;
+    margin-bottom: 6%;
+}
+
+.content.terms-of-use .sub-header h6 {
+    font-size: 2.25rem;
+    letter-spacing: .08rem;
+}
+
+.content.terms-of-use .sub-header{
+    margin: 6% 0 6% 0;
+}
+
+.content.terms-of-use .container-title-container{
+    justify-content: center;
+}
+.content.terms-of-use .container-title-container .title{
+    font-size: 2.75rem;
+}
+.content.terms-of-use p, .content.terms-of-use li{
+    margin-bottom: 2%;
+    font-size: 1.25rem;
+    line-height: 1.7777;
+    letter-spacing: .08rem;
+    font-weight: 300;
+}
+
+.content.terms-of-use li {
+    list-style-type: upper-roman;
+}
+
+.content.terms-of-use h6{
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.terms-of-use .container{
+    width:80%;
+    text-align: left;
+}
+
+.terms-of-use .container .header h1 {
+    font-size: 5rem;
+    margin-bottom: 6%;
+}
+
+.content.terms-of-use .sub-header h6 {
+    font-size: 2.25rem;
+}
