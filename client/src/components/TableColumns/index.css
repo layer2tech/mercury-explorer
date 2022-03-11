@@ -137,3 +137,13 @@ table, tbody{
     padding-bottom:34px;
 }
 
+@media (max-width: 540px){
+    .home-container .table-container{
+        width: 72%;
+    }
+    span.text-right{
+        display: block;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+}
