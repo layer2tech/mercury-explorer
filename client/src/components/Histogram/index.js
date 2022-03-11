@@ -6,9 +6,6 @@ import './index.css';
 import { depHistoSelector,withdrHistoSelector, fromSatoshi, depHistoStatus, withdrHistoStatus } from '../../store/features/dataSlice';
 import { useEffect, useState } from 'react';
 
-// Data in table headers
-const data = [{TransactionID: 'asdasdasdgw523445t', merkle_root: 'f34tgfdgd', confirmed: false, age:21,
-Statecoin_Address: 'scsdfrtgsrt456345', age:21, txid: '0fsd359sfdf3'}]
 
 const Histogram = (props) => {
     const [data,setData] = useState()
