@@ -34,8 +34,6 @@ const Histogram = (props) => {
             })
         }
 
-        console.log(histogram)
-
         histogram = histogram.sort((a,b) => a.value - b.value)
 
         setData({
