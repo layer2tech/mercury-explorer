@@ -17,14 +17,15 @@ const Histogram = (props) => {
     useEffect(()=> {
         let withdrawCount = 0
         let histogram = []
+        let swapAmounts = [100000,500000,1000000,5000000,10000000,50000000,100000000]
         if(depositHistoStatus === "fulfilled" && withdrawHistoStatus === "fulfilled"){
             depositHistoData.map(item => {
                 let withdrawTotal = withdrawHistoData.filter(value => value._id === item._id)
-                console.log(withdrawTotal)
-                if(item.count >=4 && withdrawTotal[0]){
+
+                if(swapAmounts.includes(item._id) && withdrawTotal[0]){
                     histogram.push({value: item._id, count: (item.count - withdrawTotal[0].count)})
                 }
-                else if(item.count >=4 ){
+                else if(swapAmounts.includes(item._id) ){
                     histogram.push({value: item._id, count: (item.count)})
                 }
             })
