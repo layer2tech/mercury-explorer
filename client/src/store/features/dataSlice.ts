@@ -109,7 +109,6 @@ export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
         return bTime - aTime
     })
 
-    console.log(data)
     return data
 })
 
