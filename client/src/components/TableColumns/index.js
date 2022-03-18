@@ -45,7 +45,7 @@ const TableColumns = (props) => {
                                 
                             </tr>
                         ) : (                            
-                        <tr key={item.txid_vout}>
+                        <tr key={item._id}>
                             <td>
                                 <Link
                                     className = "link"

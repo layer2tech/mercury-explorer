@@ -90,12 +90,27 @@ export const loadHistogramWithdraw = createAsyncThunk('data/loadHistogramWithdra
 
 export const loadAllBatchTx = createAsyncThunk('data/loadAllBatchTx', async () => {
     const response = await axios.get(`${REACT_APP_API}/api/swap`)
-    return response.data
+    let data = response.data.sort((a: any ,b: any) => {
+        let aTime = new Date(a.finalized_at).getTime()
+        let bTime = new Date(b.finalized_at).getTime()
+        return bTime - aTime
+    })
+
+    return data
 })
 
 export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
     const response = await axios.get(`${REACT_APP_API}/api/tx`)
-    return response.data
+
+
+    let data = response.data.sort((a: any ,b: any) => {
+        let aTime = new Date(a.inserted_at).getTime()
+        let bTime = new Date(b.inserted_at).getTime()
+        return bTime - aTime
+    })
+
+    console.log(data)
+    return data
 })
 
 export const loadAddress = createAsyncThunk('data/loadAddress', async (address) => {
