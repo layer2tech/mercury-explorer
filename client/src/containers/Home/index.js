@@ -13,8 +13,8 @@ const Home = (props) => {
                 <div className = "icon-container"><img src = {btcIcon} alt = "summary-btc" /> Summary</div>
             } data = {props.summaryData} /> : null}
             <Histogram title = "Coin Liquidity"/>
-            { props.txStatus === "fulfilled" && props.txData.length > 8 ? <TableColumns title = "Transactions" img = {txidIcon} data = { props.txData.slice(-7,-1) } home/> : null }
-            { props.batchStatus === "fulfilled" && props.batchData.length > 8 ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = { props.batchData.slice(-7,-1) } home /> : null }
+            { props.txStatus === "fulfilled" && props.txData.length > 8 ? <TableColumns title = "Transactions" img = {txidIcon} data = { props.txData.slice(0,6) } home/> : null }
+            { props.batchStatus === "fulfilled" && props.batchData.length > 8 ? <TableColumns title = "Batch Transfers" img = {swapIcon} data = { props.batchData.slice(0,6) } home /> : null }
         </div>
     )
 }
