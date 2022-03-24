@@ -5,6 +5,8 @@ import { RootState } from '../store';
 const { REACT_APP_API } = process.env;
 
 
+type BatchTxArray = BatchTx[];
+
 export interface DataValue {
     summary: any
     summary_status: string
@@ -14,7 +16,8 @@ export interface DataValue {
     withdrHisto_status: string
     tx: any
     tx_status: string
-    batch_tx: any
+    batch_tx: BatchTxArray
+    sorted_batch_tx: any
     batch_status: string
     address_list: any
     address_data: any
@@ -25,6 +28,12 @@ export interface DataValue {
     txid_list: any
     txid_data: any
     txid_status: string
+}
+export interface BatchTx {
+    batch_id: string,
+    finalized_at: string,
+    id: string,
+    statechains: string[]
 }
 
 const initialState: DataValue = {
@@ -37,6 +46,7 @@ const initialState: DataValue = {
     tx: [],
     tx_status: "idle",
     batch_tx: [],
+    sorted_batch_tx: [],
     batch_status: "idle",
     address_list: [],
     address_data: [],
@@ -64,6 +74,8 @@ export const withdrHistoStatus = (state: RootState) => state.data.withdrHisto_st
 
 export const allBatchSelector = (state: RootState) => state.data.batch_tx
 
+export const batchByDateSelector = (state: RootState) => state.data.sorted_batch_tx
+
 export const allBatchStatus = (state: RootState) => state.data.batch_status
 
 export const allTxSelector = (state: RootState) => state.data.tx
@@ -90,7 +102,7 @@ export const loadHistogramWithdraw = createAsyncThunk('data/loadHistogramWithdra
 
 export const loadAllBatchTx = createAsyncThunk('data/loadAllBatchTx', async () => {
     const response = await axios.get(`${REACT_APP_API}/api/swap`)
-    let data = response.data.sort((a: any ,b: any) => {
+    let data: BatchTxArray = response.data.sort((a: any ,b: any) => {
         let aTime = new Date(a.finalized_at).getTime()
         let bTime = new Date(b.finalized_at).getTime()
         return bTime - aTime
@@ -137,6 +149,10 @@ export const tableTitles = (title : string) => {
             return "Batch ID"
         case "address":
             return "Address"
+        case "date":
+            return "Date"
+        case "date_data":
+            return "Total Swaps"
         case "locktime":
             return "Expiry Time"
         case "amount":
@@ -218,6 +234,24 @@ export const dataSlice = createSlice({
             })
             .addCase(loadAllBatchTx.fulfilled, (state,action) => {
                 state.batch_tx = action.payload
+
+                let dates:any[] = []
+                let sortedBatchTx: any[] = []
+
+                state.batch_tx.map((tx: BatchTx) => {
+                    let date = tx.finalized_at.slice(0,10)
+                    if(!dates.includes(date)){
+                        dates.push(date)
+                    }
+                })
+                dates.map(( date: string ) => {
+                    let countArray = state.batch_tx.filter( ( tx:any ) => tx.finalized_at.slice(0,10) === date)
+                    sortedBatchTx.push({
+                        date: date,
+                        date_data: countArray
+                    })
+                })
+                state.sorted_batch_tx = sortedBatchTx
                 state.batch_status = "fulfilled"
             })
             .addCase(loadAllBatchTx.pending, (state,action) => {

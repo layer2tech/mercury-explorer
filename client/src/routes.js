@@ -3,6 +3,7 @@ export const routes = {
     address: '/address/:id',
     swap: '/swap/:id',
     batch_transfers: '/swap',
+    batch_transfers_date: '/date/:id',
     txid: '/tx/:id',
     transactions: '/tx',
     about: '/about',

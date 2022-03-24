@@ -6,6 +6,7 @@ export { default as Home } from './Home';
 export { default as Address } from './Address';
 export { default as Swap } from './Swap';
 export { default as BatchTransfers } from './BatchTransfers';
+export { default as BatchTransfersDate } from './BatchTransfersDate';
 export { default as TransactionID } from './TransactionID';
 export { default as Transactions } from './Transactions';
 

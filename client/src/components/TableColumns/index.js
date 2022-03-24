@@ -25,7 +25,7 @@ const TableColumns = (props) => {
                     </thead>
                     <tbody>
                     {props.data.map((item) =>
-                        (item.batch_id !== undefined) ? (
+                        !item.date ?((item.batch_id !== undefined) ? (
                             <tr key={item.batch_id}>
                                 <td>
                                     <Link
@@ -68,7 +68,22 @@ const TableColumns = (props) => {
                                 <span className="text-right ml-1">{item.inserted_at}</span>
                             </td>
                         </tr>)
-                    )}
+                    ):(                        
+                        <tr key={item.date}>
+                            <td>
+                                <Link 
+                                    className = "link"
+                                    to = {`/date/${item.date}`}
+                                    title = {item.date}
+                                    >
+                                    {item.date}
+                                </Link>
+                            </td>
+                            <td>
+                                {item.date_data.length}
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
                 {(props.title === "Batch Transfers" || props.title === "Transactions") && 
