@@ -2,8 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import {Router, Switch, Route,Redirect} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { allTxStatus,allBatchStatus, loadAllTx, loadAllBatchTx, allBatchSelector,allTxSelector, summaryStatus, summarySelector, loadSummary, loadHistogramDeposit,loadHistogramWithdraw, depHistoStatus, depHistoSelector, withdrHistoSelector, withdrHistoStatus } from './store/features/dataSlice';
-import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers, Footer, TermsConditions } from './containers';
+import { allTxStatus,allBatchStatus, loadAllTx, loadAllBatchTx, allBatchSelector,allTxSelector, summaryStatus, summarySelector, loadSummary, loadHistogramDeposit,loadHistogramWithdraw, depHistoStatus, depHistoSelector, withdrHistoSelector, withdrHistoStatus, batchByDateSelector } from './store/features/dataSlice';
+import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers, Footer, TermsConditions, BatchTransfersDate } from './containers';
 import {routes} from './routes';
 import appHistory from './app.history';
 
@@ -11,11 +11,10 @@ import appHistory from './app.history';
 
 function App() {
   const dispatch = useDispatch()
-  const batchTxData = useSelector(allBatchSelector)
+  const batchTxData = useSelector(batchByDateSelector)
   const batchStatus = useSelector(allBatchStatus)
   const txData = useSelector(allTxSelector)
   const txStatus = useSelector(allTxStatus)
-
   const summaryData = useSelector(summarySelector)
   const summaryStat = useSelector(summaryStatus)
 
@@ -72,6 +71,8 @@ function App() {
             <Route path = {routes.swap} component = {Swap} />
 
             <Route path = {routes.batch_transfers} component = {BatchTransfers} />
+
+            <Route path = {routes.batch_transfers_date} component = {BatchTransfersDate} />
 
             <Route path = {routes.address} component = {Address} />
             
