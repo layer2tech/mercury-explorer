@@ -6,11 +6,17 @@ import './index.css';
 // props.data in table headers
 
 const TableColumns = (props) => {
-
+    function sortDateString(date){
+        let dateString
+        dateString = date.replace('T', " ")
+        dateString = dateString.replace('Z', " ")
+        dateString = dateString.slice(0,-5)
+        return dateString
+    }
     return(
     <div className = "table-component-holder column-table">
         <div className = "table-container">
-            <h1 className = "table-title" >
+            <h1 className = "table-title" > 
             <div className = "icon-container txid"><img src = {props.img} alt = {props.title}/>{props.title}</div>
             </h1> 
             <div className="mb-3 flex-table">
@@ -37,7 +43,7 @@ const TableColumns = (props) => {
                                     </Link>
                                 </td>
                                 <td>
-                                    <span className="text-right ml-1">{item.finalized_at}</span>
+                                    <span className="text-right ml-1">{sortDateString(item.finalized_at)}</span>
                                 </td>
                                 <td>
                                     <span className="text-right ml-1">{item.statechains.length}</span>
@@ -65,7 +71,7 @@ const TableColumns = (props) => {
                                 </Link>
                             </td>
                             <td>
-                                <span className="text-right ml-1">{item.inserted_at}</span>
+                                <span className="text-right ml-1">{sortDateString(item.inserted_at)}</span>
                             </td>
                         </tr>)
                     ):(                        
