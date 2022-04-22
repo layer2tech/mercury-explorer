@@ -15,7 +15,7 @@ const Footer = () => (
             {/*    <Link to={routes.pricing}>Pricing</Link>*/}
             {/*</div>*/}
             <div className="footer-list-item">
-                <a href="https://github.com/layer2tech/mercury-explorer/blob/main/helpers/docs/explorer_api.md">
+                <a href="https://github.com/layer2tech/mercury-explorer/blob/main/api/API.md">
                     API Information
                 </a>
             </div>
