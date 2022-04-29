@@ -5,8 +5,8 @@ import { loadTx, fromSatoshi } from '../../store/features/dataSlice';
 import { ContainerTitle,EmptySearch,TableRows } from '../../components';
 import './index.css';
 import arrow from '../../images/arrow-up-white.svg';
-
 import {bech32} from 'bech32';
+const { REACT_APP_API } = process.env;
 
 /*
 Header = TxId:vout
@@ -50,7 +50,11 @@ const TransactionID = (props) => {
     // Bech32 encode SCEAddress (StateChain Entity Address)
     const encodeSCEAddress = (proof_key) => {
         let words = bech32.toWords(Buffer.from(proof_key, 'hex'))
-        return bech32.encode('tc', words)
+        if(REACT_APP_API.includes("testnet")){
+            return bech32.encode('tc', words)
+        } else{
+            return bech32.encode('sc', words)
+        }
     }
     
 
