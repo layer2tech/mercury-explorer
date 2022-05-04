@@ -29,6 +29,7 @@ const Swap = (props) => {
             
         }
     },[data,batchStatus,batch_id,dispatch])
+    console.log(data)
 
     return(
         <div>
