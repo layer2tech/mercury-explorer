@@ -33,10 +33,6 @@
   * **Code:** 500 <br />
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
-
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/tx
   
 * **Method:**
   
@@ -80,10 +76,6 @@
   * **Code:** 500 <br />
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
-
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/tx/{:id}
     
 * **Method:**
   
@@ -124,10 +116,6 @@
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/address/{:id}
-
 * **Method:**
   
   `GET`
@@ -159,10 +147,6 @@
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/swap
-  
   * **Method:**
   
   `GET`
@@ -198,14 +182,7 @@
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-* **Sample Call:**
 
- https://api.mercurywallet.com/api/swap/{:id}
- 
- 
- 
-
-  
 * **Method:**
   
   `GET`
@@ -240,11 +217,6 @@
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/summary  
-  
-  
 * **Method:**
   
   `GET`
@@ -286,11 +258,6 @@
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/histo/deposit
-  
-
 * **Method:**
   
   `GET`
@@ -331,7 +298,3 @@
   * **Code:** 500 <br />
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
-
-* **Sample Call:**
-
-  https://api.mercurywallet.com/api/histo/withdraw
