@@ -8,5 +8,6 @@ export const routes = {
     transactions: '/tx',
     about: '/about',
     privacy: '/privacy',
-    terms: '/terms'
+    terms: '/terms',
+    csv: '/csv'
 }
