@@ -49,7 +49,7 @@ https://api.mercurywallet.com/csv
   // Transactions in the past 24 hours
   
   updated: Unix Timestamp,
-  // When data was last updated
+  // When data was last updated ( updated every 24 hours )
 
 * **Success Response:**
 
