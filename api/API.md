@@ -65,7 +65,8 @@ https://api.mercurywallet.com/
 
   * **Code:** 500 <br />
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
-    
-* **Example Call: **
+
+
+* **Example Call:**
 
 https://api.mercurywallet.com/csv
