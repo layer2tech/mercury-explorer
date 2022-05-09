@@ -1,5 +1,6 @@
 **API Docs** 
 
+https://api.mercurywallet.com/
 
 * **Method:**
   
@@ -64,3 +65,7 @@
 
   * **Code:** 500 <br />
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
+    
+* **Example Call: **
+
+https://api.mercurywallet.com/csv
