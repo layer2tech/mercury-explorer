@@ -10,7 +10,7 @@ https://api.mercurywallet.com/csv
 
    /csv
 
-* **Data Params**
+* **Returned Data**
 
   swapvolume_pastday: integer,
   // number of batch transfers ( swaps ) in the past day
