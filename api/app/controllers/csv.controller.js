@@ -200,7 +200,7 @@ exports.getSummary = (req,res) => {
 
     if( dataVariable  && (date - dataVariable[0].updated <= 8.64E7)){
         // If static saved in last day - dont query db
-        
+        console.log('From Local Variable')
         res.json(arrayToCSV(dataVariable))
     }
     else{
