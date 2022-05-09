@@ -29,7 +29,7 @@ function dataset2CSV(data){
 }
 
 exports.getSummary = (req,res) => {
-    var yesterday = new Date()
+    let yesterday = new Date(Date.now() - 8.6E7).toISOString();
 
     const pipeline = [
         {
@@ -113,7 +113,9 @@ exports.getSummary = (req,res) => {
             'statecoins_created': '$deposited_coins', 
             'pastday_batch': {
               '$gt': [
-                '$batchtransfers.finalized_at', yesterday.setDate(0) - 1
+                '$batchtransfers.finalized_at', { '$dateFromString': {
+                   'dateString': yesterday
+                } }
               ]
             }, 
             'batchtransfers': '$batchtransfers'
@@ -198,9 +200,11 @@ exports.getSummary = (req,res) => {
     var csv
     let date = Date.now();
 
-    if( dataVariable  && (date - dataVariable[0].updated <= 8.64E7)){
+    
+    console.log(yesterday)
+    if( dataVariable  && (date - dataVariable[0].updated <= 8.6E7)){
         // If static saved in last day - dont query db
-        console.log('From Local Variable')
+        console.log('From Static Variable')
         res.json(arrayToCSV(dataVariable))
     }
     else{
@@ -215,7 +219,7 @@ exports.getSummary = (req,res) => {
         .catch(err => {
             res.status(500).send({
             message:
-                err.message || "error occurred while finding Transaction"
+                err.message || "error occurred while finding Summary"
             });
         });
     }
