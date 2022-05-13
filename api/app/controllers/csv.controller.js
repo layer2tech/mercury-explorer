@@ -179,7 +179,7 @@ exports.getSummary = async (req,res) => {
 
     let date = Date.now();
 
-    if( dataVariable  && (date - dataVariable[0].updated <= 5000)){//8.6E7
+    if( dataVariable  && (date - dataVariable[0].updated <= 8.6E7)){//8.6E7
       // If static saved in last day - dont query db
       console.log('From Static Variable')
 
@@ -197,7 +197,7 @@ exports.getSummary = async (req,res) => {
       Transaction.aggregate(pipeline)
         .then(data => {
           data[0].updated = Date.now();
-          
+
           dataVariable = data;
           
           csvWriter.writeRecords([Object.values(data[0])]).then(
