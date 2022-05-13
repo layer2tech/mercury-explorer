@@ -1,34 +1,19 @@
 const db = require("../models");
 const Transaction = db.transactions;
+const fs = require('fs');
+const createCsvWriter = require('csv-writer').createArrayCsvWriter;
+const CSVFileValidator = require('csv-file-validator');
 
 let dataVariable
 
-function arrayToCSV(objArray) {
-    // convert an array of objects to CSV
-    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-    let str = `${Object.keys(array[0]).map(value => `"${value}"`).join(",")}` + '\r\n';
 
-    return array.reduce((str, next) => {
-        str += `${Object.values(next).map(value => `"${value}"`).join(",")}` + '\r\n';
-        return str;
-       }, str);
-}
+const csvWriter = createCsvWriter({
+  path: './data.csv',
+  header: [ "_id", "swapvolume_pastday", "value_sats", "statecoins_created","liquidity", "tx_pastday", "updated" ]
+})
 
-function dataset2CSV(data){
-    // convert our dataset to CSV
-    let csv = data
-    // tx = data[0].tx
-    // batchtransfers = data[0].batchtransfers
-    csv[0].tx = arrayToCSV( data[0].tx )
 
-    csv[0].batchtransfers = arrayToCSV( data[0].batchtransfers )
-
-    csv = arrayToCSV(csv)
-
-    return csv
-}
-
-exports.getSummary = (req,res) => {
+exports.getSummary = async (req,res) => {
     let yesterday = new Date(Date.now() - 8.6E7).toISOString();
 
     const pipeline = [
@@ -185,36 +170,47 @@ exports.getSummary = (req,res) => {
             'liquidity': {
               '$first': '$liquidity'
             }, 
-            'batchtransfers': {
-              '$first': '$batchtransfers'
-            }, 
             'tx_pastday': {
               '$sum': 1
-            }, 
-            'tx': {
-              '$push': '$transactions'
             }
           }
         }
       ]
-    var csv
+
     let date = Date.now();
 
-    
-    console.log(yesterday)
-    if( dataVariable  && (date - dataVariable[0].updated <= 8.6E7)){
-        // If static saved in last day - dont query db
-        console.log('From Static Variable')
-        res.json(arrayToCSV(dataVariable))
+    if( dataVariable  && (date - dataVariable[0].updated <= 5000)){//8.6E7
+      // If static saved in last day - dont query db
+      console.log('From Static Variable')
+
+      fs.readFile('./data.csv', function read(err, data){
+        if(err){
+          throw err
+        }
+        res.send(data)
+      })
+
     }
     else{
-        console.log('From DB')
-        Transaction.aggregate(pipeline)
+      console.log('From DB')
+
+      Transaction.aggregate(pipeline)
         .then(data => {
-            data[0].updated = Date.now()
-            dataVariable = data
-            csv = dataset2CSV(data)
-            res.json(csv)
+          data[0].updated = Date.now();
+          
+          dataVariable = data;
+          
+          csvWriter.writeRecords([Object.values(data[0])]).then(
+            item =>{
+              
+              fs.readFile('./data.csv', function read(err, data){
+                if(err){
+                  throw err
+                }
+                res.send(data)
+              })
+            }
+          ).catch(err => {console.log("ERROR", err)})
         })
         .catch(err => {
             res.status(500).send({

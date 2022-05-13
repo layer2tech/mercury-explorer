@@ -8,8 +8,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "csv-file-validator": "^1.13.1",
+    "csv-writer": "^1.6.0",
     "express": "^4.17.1",
     "express-rate-limit": "^6.4.0",
+    "json2csv": "^5.0.7",
     "mongoose": "^5.8.10",
     "nodemon": "^2.0.13",
     "pg": "^8.7.1"
