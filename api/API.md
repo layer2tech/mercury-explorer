@@ -37,7 +37,7 @@ Updated daily ( every 24h ) at 18:13:04 GMT+0000
 
   * **Code:** 200 <br />
     **Content:** CSV<br />
-   _id,swapvolume_pastday,value_sats,statecoins_created,liquidity,tx_pastday,updated
+   _id,swapvolume_pastday,value_sats,statecoins_created,liquidity,tx_pastday,updated <br />
 1,45,490300000,310,104,8,1652464931521
  
 * **Error Response:**
