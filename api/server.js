@@ -36,8 +36,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/csv", csv.getSummary);
-app.get("/testnet/csv", csv_testnet.getSummary);
+app.get("/summary", csv.getSummary);
+app.get("/histogram", csv.getHistogram);
+app.get("/testnet/summary", csv_testnet.getSummary);
+app.get("/testnet/histogram", csv_testnet.getSummary);
 
 
 var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet.explorer.mercurywallet.com"]
