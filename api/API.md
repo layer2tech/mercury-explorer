@@ -2,7 +2,7 @@
 
 https://api.mercurywallet.com/csv
 
-Updated daily ( every 24h ) at 10:23:19 GMT+0000
+Updated daily ( every 24h ) at 18:13:04 GMT+0000
 
 * **Method:**
   
