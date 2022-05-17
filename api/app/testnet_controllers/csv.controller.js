@@ -339,7 +339,7 @@ exports.getHistogram = (req,res) => {
             }
             })
   
-          histogram.sort( (a,b) => Object.values(b)[0] - Object.values(a)[0] )
+          histogram.sort( (a,b) => parseInt(Object.entries(a)[0]) - parseInt(Object.entries(b)[0]));
 
           histogram.push({"updated": new Date(today)})
 
