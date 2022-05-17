@@ -1,12 +1,12 @@
 **API Docs** 
 
-https://api.mercurywallet.com/summary
-
-Updated daily ( every 24h ) at 00:00:00 GMT+0000
-
 * **Method:**
   
   `GET`
+  
+  https://api.mercurywallet.com/summary
+
+  Updated daily ( every 24h ) at 00:00:00 GMT+0000
   
 *  **URL Params**
 
@@ -49,13 +49,14 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-https://api.mercurywallet.com/histogram
-
-Updated daily ( every 24h ) at 00:00:00 GMT+0000
 
 * **Method:**
   
   `GET`
+  
+  https://api.mercurywallet.com/histogram
+
+  Updated daily ( every 24h ) at 00:00:00 GMT+0000
   
 *  **URL Params**
 
