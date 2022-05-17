@@ -19,7 +19,6 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
   
   capacity_statechains: integer,<br/>
   • Total value currently in mercury wallet ( in satoshis )<br/>
-  • The sum value of every coin deposited by every user <br/>
   
   statecoins: integer,<br/>
   • All time total number of statecoins
@@ -30,11 +29,9 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
   swapset_per_day: integer,<br/>
   • Total number of coins involved in a swap
   • Differing from the swaps_per_day, the swapset per day is the sum of every coin participating in every swap <br/>
-    - i.e. 2 swaps completed of 5 coins would have a swapset of 10<br/>
-    - A larger swapset means better privacy<br/>
-    - If you swap at the beginning of a day where 10 swaps ocurred, each with 5 coins<br/>
-      there are potentially 50 people who could have ownership of your original coin.<br/>
-    - If a particular day has a swapset of 1000, there are 1000 people who could have ownership of your coin.<br/>
+    - i.e. 2 swaps of 5 coins has a swapset of 10<br/>
+    - A larger swapset means better privacy. <br/>
+    - A larger swapset is a larger number of potential owners of any coin swapped on that day.
   
   updated: Timestamp,<br/>
   • When data was last updated ( updated every 24 hours )
