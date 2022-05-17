@@ -27,7 +27,7 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
   • Current number of statecoins in mercury wallet<br/>
  
   swapset_per_day: integer,<br/>
-  • Total number of coins involved in a swap
+  • Total number of coins involved in a swap <br />
   • Differing from the swaps_per_day, the swapset per day is the sum of every coin participating in every swap <br/>
     - i.e. 2 swaps of 5 coins has a swapset of 10<br/>
     - A larger swapset means better privacy. <br/>
