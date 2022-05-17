@@ -64,13 +64,13 @@
 
 * **Returned Data**
 
-  100000,500000,1000000,5000000,10000000,50000000: integer,<br/>
-  • Each header is an amount in satoshis<br/>
+  **Liquidity per value of a statecoin.**
+  
+  • Each header is an amount in satoshis <br />
   • The values are the # of statecoins currently in a mercury wallet of each value<br/>
-    - liquidity per value
   
   updated: Timestamp,<br/>
-  • When data was last updated ( updated every 24 hours )
+  • The date and time that each row of data was collected ( updated every 24 hours )
 
 * **Success Response:**
 
