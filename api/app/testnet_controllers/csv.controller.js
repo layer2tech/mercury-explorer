@@ -261,6 +261,8 @@ exports.getHistogram = (req,res) => {
   today = today.slice(0,10);
   // the date in format : YYYY-MM-DD
 
+  let todayUnix = new Date(today).getTime();
+
   const deposit = [
     {
       '$match': {
@@ -304,7 +306,7 @@ exports.getHistogram = (req,res) => {
       })
   }
 
-  if(histogramVar && ((date - updated)) <= 8.6E7){
+  if(histogramVar && ((date - updated)) <= 3000){8.6E7
     // If static saved in last day - dont query db
     console.log('From Static Variable')
 
@@ -337,7 +339,7 @@ exports.getHistogram = (req,res) => {
             }
             })
   
-          histogram.sort((a,b) => a.value - b.value)
+          histogram.sort( (a,b) => Object.values(b)[0] - Object.values(a)[0] )
 
           histogram.push({"updated": new Date(today)})
 
