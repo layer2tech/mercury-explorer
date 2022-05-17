@@ -8,6 +8,8 @@
 
   Updated daily ( every 24h ) at 00:00:00 GMT+0000
   
+  Data for up to 30 days will be cached and returned
+  
 *  **URL Params**
 
    /summary
@@ -57,6 +59,8 @@
   https://api.mercurywallet.com/histogram
 
   Updated daily ( every 24h ) at 00:00:00 GMT+0000
+  
+  Data for up to 30 days will be cached and returned
   
 *  **URL Params**
 
