@@ -1,12 +1,14 @@
 **API Docs** 
 
-https://api.mercurywallet.com/summary
-
-Updated daily ( every 24h ) at 00:00:00 GMT+0000
-
 * **Method:**
   
   `GET`
+  
+  https://api.mercurywallet.com/summary
+
+  Updated daily ( every 24h ) at 00:00:00 GMT+0000
+  
+  Data for up to 30 days will be cached and returned
   
 *  **URL Params**
 
@@ -19,7 +21,6 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
   
   capacity_statechains: integer,<br/>
   • Total value currently in mercury wallet ( in satoshis )<br/>
-  • The sum value of every coin deposited by every user <br/>
   
   statecoins: integer,<br/>
   • All time total number of statecoins
@@ -28,13 +29,11 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
   • Current number of statecoins in mercury wallet<br/>
  
   swapset_per_day: integer,<br/>
-  • Total number of coins involved in a swap
+  • Total number of coins involved in a swap <br />
   • Differing from the swaps_per_day, the swapset per day is the sum of every coin participating in every swap <br/>
-    - i.e. 2 swaps completed of 5 coins would have a swapset of 10<br/>
-    - A larger swapset means better privacy<br/>
-    - If you swap at the beginning of a day where 10 swaps ocurred, each with 5 coins<br/>
-      there are potentially 50 people who could have ownership of your original coin.<br/>
-    - If a particular day has a swapset of 1000, there are 1000 people who could have ownership of your coin.<br/>
+    - i.e. 2 swaps of 5 coins has a swapset of 10<br/>
+    - A larger swapset means better privacy. <br/>
+    - A larger swapset is a larger number of potential owners of any coin swapped on that day.
   
   updated: Timestamp,<br/>
   • When data was last updated ( updated every 24 hours )
@@ -52,13 +51,16 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
     **Content:** `{ error : ""error occurred while finding Transaction"" }`
 
 
-https://api.mercurywallet.com/histogram
-
-Updated daily ( every 24h ) at 00:00:00 GMT+0000
 
 * **Method:**
   
   `GET`
+  
+  https://api.mercurywallet.com/histogram
+
+  Updated daily ( every 24h ) at 00:00:00 GMT+0000
+  
+  Data for up to 30 days will be cached and returned
   
 *  **URL Params**
 
@@ -66,13 +68,13 @@ Updated daily ( every 24h ) at 00:00:00 GMT+0000
 
 * **Returned Data**
 
-  100000,500000,1000000,5000000,10000000,50000000: integer,<br/>
-  • Each header is an amount in satoshis<br/>
+  **Liquidity per value of a statecoin.**
+  
+  • Each header is an amount in satoshis <br />
   • The values are the # of statecoins currently in a mercury wallet of each value<br/>
-    - liquidity per value
   
   updated: Timestamp,<br/>
-  • When data was last updated ( updated every 24 hours )
+  • The date and time that each row of data was collected ( updated every 24 hours )
 
 * **Success Response:**
 
