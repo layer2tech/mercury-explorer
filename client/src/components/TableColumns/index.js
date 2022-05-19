@@ -16,8 +16,12 @@ const TableColumns = (props) => {
     return(
     <div className = "table-component-holder column-table">
         <div className = "table-container">
-            <h1 className = "table-title" > 
-            <div className = "icon-container txid"><img src = {props.img} alt = {props.title}/>{props.title}</div>
+            <h1 className = "table-title" >
+            <div className='header-container'>
+                <div className = "icon-container txid"><img src = {props.img} alt = {props.title}/>{props.title}
+                </div>
+                {props.title==="Transactions"?(<div className="updated-header"><p>Last Updated: {sortDateString(props.data[0].inserted_at)}</p></div>):(null)}
+            </div>
             </h1> 
             <div className="mb-3 flex-table">
                 <table width="100%" id="table">

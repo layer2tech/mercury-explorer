@@ -136,6 +136,18 @@ table, tbody{
 .padding-bottom{
     padding-bottom:34px;
 }
+.updated-header{
+    font-size: 1rem;
+
+    padding-right: 8%;
+
+}
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
 
 @media (max-width: 540px){
     .home-container .table-container{
