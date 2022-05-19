@@ -23,8 +23,15 @@ const TableColumns = (props) => {
                 <table width="100%" id="table">
                     <thead>
                         <tr>{/* Change key for more readable format */}
-                            {Object.keys(props.data[0]).map(key =>
-                                key !== "id" && key !== "_id" ? <th key = {key}>{tableTitles(key)}</th> : null
+                            {Object.keys(props.data[0]).map(key =>{
+                                console.log(key)
+                                if(key === "inserted_at" || key === "updated_at" ){
+                                    return
+                                }
+                                if(key !== "id" && key !== "_id"){
+                                    return <th key = {key}>{tableTitles(key)}</th>
+                                }
+                            }
                             
                             )}
                         </tr>
@@ -69,9 +76,6 @@ const TableColumns = (props) => {
                                 >
                                     {item.address}
                                 </Link>
-                            </td>
-                            <td>
-                                <span className="text-right ml-1">{sortDateString(item.inserted_at)}</span>
                             </td>
                         </tr>)
                     ):(                        

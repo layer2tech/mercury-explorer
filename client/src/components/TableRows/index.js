@@ -18,6 +18,10 @@ const TableRows = (props) => {
                 <table width="100%" id="table">
                     <tbody>
                     {Object.entries(props.data[0]).map(([key,value]) => {
+                        console.log([key, value])
+                        if(key === "inserted_at" || key === "updated_at" ){
+                            return
+                        }
                         if(key !== "_id"){
                             return(
                             <tr key={value}>
