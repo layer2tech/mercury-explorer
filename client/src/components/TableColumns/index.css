@@ -153,6 +153,9 @@ table, tbody{
     .home-container .table-container{
         width: 72%;
     }
+    .header-container{
+        flex-direction: column;
+    }
     span.text-right{
         display: block;
         overflow:hidden;

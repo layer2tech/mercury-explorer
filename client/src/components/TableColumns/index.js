@@ -28,7 +28,6 @@ const TableColumns = (props) => {
                     <thead>
                         <tr>{/* Change key for more readable format */}
                             {Object.keys(props.data[0]).map(key =>{
-                                console.log(key)
                                 if(key === "inserted_at" || key === "updated_at" ){
                                     return
                                 }

@@ -42,7 +42,7 @@ app.get("/testnet/summary", csv_testnet.getSummary);
 app.get("/testnet/histogram", csv_testnet.getSummary);
 
 
-var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet.explorer.mercurywallet.com", "http://localhost:3000"]
+var whitelist = [ "https://testnet-mercury-explorer.netlify.app", "https://explorer.mercurywallet.com", "https://testnet.explorer.mercurywallet.com" ]
 
 var corsOptions = {
   origin: function (origin, callback) {
