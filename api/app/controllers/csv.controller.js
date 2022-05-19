@@ -228,21 +228,27 @@ exports.getSummary = (req,res) => {
 
       Transaction.aggregate(pipeline)
         .then(data => {
-          
-          console.log("data collected from db summary")
-          data[0].updated = new Date(today);
-          // data[0].updated = new Date()
-          delete data[0]["_id"]
-
-          summaryVar = data;
-          
-          csvSummary.writeRecords([Object.values(data[0])]).then(
-            item =>{
-              res.download('./data.csv', function(error){
-                if(error) console.log("Error : ", error)
-              })
-            }
-          ).catch(err => {console.log("ERROR", err)})
+          if(data){
+            console.log("data collected from db summary")
+            data[0].updated = new Date(today);
+            // data[0].updated = new Date()
+            delete data[0]["_id"]
+  
+            summaryVar = data;
+            
+            csvSummary.writeRecords([Object.values(data[0])]).then(
+              item =>{
+                res.download('./data.csv', function(error){
+                  if(error) console.log("Error : ", error)
+                })
+              }
+            ).catch(err => {console.log("ERROR", err)})
+          }
+          else{
+            res.download('./data.csv', function(error){
+              if(error) console.log("Error : ", error)
+            })
+          }
         })
         .catch(err => {
             res.status(500).send({
