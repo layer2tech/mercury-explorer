@@ -136,7 +136,8 @@ exports.getSummary = (req,res) => {
         }
       }, {
         '$unwind': '$transactions'
-      },{
+      },
+      {
         '$match': {
           'transactions.inserted_at': {
             $gt: ydayUnix,
@@ -209,6 +210,12 @@ exports.getSummary = (req,res) => {
 
     let date = Date.now();
     let updated
+    if(date < 1652993999){
+      res.download('./data.csv', function(error){
+        if(error) console.log("Error : ", error)
+      })
+    }
+    if(date)
 
     if(summaryVar) {
       updated =  summaryVar[0].updated.getTime()
@@ -228,7 +235,7 @@ exports.getSummary = (req,res) => {
 
       Transaction.aggregate(pipeline)
         .then(data => {
-          if(data){
+          if(data.length>0){
             console.log("data collected from db summary")
             data[0].updated = new Date(today);
             // data[0].updated = new Date()
