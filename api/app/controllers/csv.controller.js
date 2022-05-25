@@ -216,7 +216,7 @@ exports.getSummary = (req,res) => {
       updated =  summaryVar[0].updated.getTime()
     }
 
-    if( summaryVar  && (date - updated <= 5000 )){//8.6E7
+    if( summaryVar  && (date - updated <= 8.6E7 )){// each day
       // If static saved in last day - dont query db
       console.log('From Static Variable - Summary')
 
@@ -314,7 +314,7 @@ exports.getHistogram = (req,res) => {
       })
   }
 
-  if(histogramVar && ((date - updated)) <= 5000){
+  if(histogramVar && ((date - updated)) <= 8.6E7){
     // If static saved in last day - dont query db
     console.log('From Static Variable')
 
