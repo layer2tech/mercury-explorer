@@ -2,19 +2,20 @@ const db = require("../models");
 const Transaction = db.transactions;
 const fs = require('fs');
 const createCsvWriter = require('csv-writer').createArrayCsvWriter;
-const CSVFileValidator = require('csv-file-validator');
 
 let summaryVar
 let histogramVar
 
 const csvSummary = createCsvWriter({
   path: './data.csv',
-  header: [ "swaps_per_day", "capacity_statechains", "statecoins", "liquidity", "swapset_per_day", "updated" ]
+  header: [ "swaps_per_day", "capacity_statechains", "statecoins", "liquidity", "swapset_per_day", "updated" ],
+  append: true
 })
 
 const csvHistogram = createCsvWriter({
   path: './histogram.csv',
-  header: [ "100000", "500000", "1000000", "5000000","10000000", "50000000", "updated" ]
+  header: [ "100000", "500000", "1000000", "5000000","10000000", "50000000", "updated" ],
+  append: true
 })
 
 
@@ -210,18 +211,12 @@ exports.getSummary = (req,res) => {
 
     let date = Date.now();
     let updated
-    if(date < 1652993999){
-      res.download('./data.csv', function(error){
-        if(error) console.log("Error : ", error)
-      })
-    }
-    if(date)
 
     if(summaryVar) {
       updated =  summaryVar[0].updated.getTime()
     }
 
-    if( summaryVar  && (date - updated <= 8.6E7 )){
+    if( summaryVar  && (date - updated <= 5000 )){//8.6E7
       // If static saved in last day - dont query db
       console.log('From Static Variable - Summary')
 
@@ -319,7 +314,7 @@ exports.getHistogram = (req,res) => {
       })
   }
 
-  if(histogramVar && ((date - updated)) <= 8.6E7){
+  if(histogramVar && ((date - updated)) <= 5000){
     // If static saved in last day - dont query db
     console.log('From Static Variable')
 
