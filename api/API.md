@@ -75,6 +75,12 @@
   
   updated: Timestamp,<br/>
   • The date and time that each row of data was collected ( updated every 24 hours )
+  
+    
+  NOTE:
+  
+  Values shown are the values recommended for swaps.
+  Statecoins of other values exist in Mercury as users can deposit a custom value.
 
 * **Success Response:**
 
