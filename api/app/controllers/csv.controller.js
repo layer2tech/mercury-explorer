@@ -128,24 +128,7 @@ exports.getSummary = (req,res) => {
             '$push': '$batchtransfers'
           }
         }
-      }, {
-        '$lookup': {
-          'from': 'transactions', 
-          'localField': 'string', 
-          'foreignField': 'string', 
-          'as': 'transactions'
-        }
-      }, {
-        '$unwind': '$transactions'
       },
-      {
-        '$match': {
-          'transactions.inserted_at': {
-            $gt: ydayUnix,
-            $lt: todayUnix
-            }
-          }
-        },
         {
         '$group': {
           '_id': '$_id', 
