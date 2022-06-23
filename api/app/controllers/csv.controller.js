@@ -220,14 +220,40 @@ exports.getSummary = (req,res) => {
             delete data[0]["_id"]
   
             summaryVar = data;
-            
-            csvSummary.writeRecords([Object.values(data[0])]).then(
-              item =>{
-                res.download('./data.csv', function(error){
-                  if(error) console.log("Error : ", error)
-                })
+
+            fs.readFile('./data.csv', 'utf8', (err,file) => {
+              if(err){
+                console.error(err);
+                return
               }
-            ).catch(err => {console.log("ERROR", err)})
+              
+              file = file.split('\n');
+              file.splice(1,1);
+
+              var fileString = "";
+
+              file.map(item => {
+                if(item !== ""){
+                  fileString += item + '\n'
+                }
+              })
+
+              fs.writeFile('./data.csv', fileString, err => {
+                if (err) {
+                  console.error(err);
+                }
+                // file written successfully
+                csvSummary.writeRecords([Object.values(data[0])]).then(
+                  item =>{
+                    res.download('./data.csv', function(error){
+                      if(error) console.log("Error : ", error)
+                    })
+                  }
+                ).catch(err => {console.log("ERROR", err)})
+              });
+              
+            })
+            
           }
           else{
             res.download('./data.csv', function(error){
@@ -297,7 +323,7 @@ exports.getHistogram = (req,res) => {
       })
   }
 
-  if(histogramVar && ((date - updated)) <= 8.6E7){
+  if(histogramVar && ((date - updated)) <= 8.6E7){ 
     // If static saved in last day - dont query db
     console.log('From Static Variable')
 
@@ -336,14 +362,39 @@ exports.getHistogram = (req,res) => {
 
           histogramVar = histogram
           // Save static variable
-          
-          csvHistogram.writeRecords([histogram.map(item => Object.values(item))])
-            .then(  item =>{
-                res.download('./histogram.csv', function(error){
-                  if(error) console.log("Error : ", error)
-                })
+
+          fs.readFile('./histogram.csv', 'utf8', (err,file) => {
+            if(err){
+              console.error(err);
+              return
             }
-          ).catch(err => {console.log("ERROR", err)})
+            
+            file = file.split('\n');
+            file.splice(1,1);
+
+            var fileString = "";
+
+            file.map(item => {
+              if(item !== ""){
+                fileString += item + '\n'
+              }
+            })
+
+            fs.writeFile('./histogram.csv', fileString, err => {
+              if (err) {
+                console.error(err);
+              }
+              // file written successfully
+              csvHistogram.writeRecords([histogram.map(item => Object.values(item))])
+                .then(  item =>{
+                    res.download('./histogram.csv', function(error){
+                      if(error) console.log("Error : ", error)
+                    })
+                }
+              ).catch(err => {console.log("ERROR", err)})
+              }
+            )})
+          
   
         })
         .catch(err => {
