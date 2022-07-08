@@ -3,6 +3,8 @@ module.exports = app => {
 
   var router = require("express").Router();
 
+  router.get("/recent", batchtransfers.findRecent)
+
   // Retrieve all Statechains
   router.get("/", batchtransfers.findAll);
 

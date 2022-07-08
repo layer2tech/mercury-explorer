@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import {Router, Switch, Route,Redirect} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { allTxStatus,allBatchStatus, loadAllTx, loadAllBatchTx, allBatchSelector,allTxSelector, summaryStatus, summarySelector, loadSummary, loadHistogramDeposit,loadHistogramWithdraw, depHistoStatus, depHistoSelector, withdrHistoSelector, withdrHistoStatus, batchByDateSelector } from './store/features/dataSlice';
+import { allTxStatus,allBatchStatus, loadAllTx, loadAllBatchTx, allBatchSelector,allTxSelector, summaryStatus, summarySelector, loadSummary, loadHistogramDeposit,loadHistogramWithdraw, depHistoStatus, depHistoSelector, withdrHistoSelector, withdrHistoStatus, batchByDateSelector, recentBatchStatus, batchByDateRecentSelector, loadRecentBatchTx } from './store/features/dataSlice';
 import { TopNavigation, Home, Swap, Address, TransactionID, Transactions, BatchTransfers, Footer, TermsConditions, BatchTransfersDate } from './containers';
 import {routes} from './routes';
 import appHistory from './app.history';
@@ -10,14 +10,16 @@ import appHistory from './app.history';
 // Mainstay adds: <Router history={appHistory} />
 
 function App() {
+
   const dispatch = useDispatch()
   const batchTxData = useSelector(batchByDateSelector)
   const batchStatus = useSelector(allBatchStatus)
+  const recBatchData = useSelector(batchByDateRecentSelector)
+  const recBatchStatus = useSelector(recentBatchStatus)
   const txData = useSelector(allTxSelector)
   const txStatus = useSelector(allTxStatus)
   const summaryData = useSelector(summarySelector)
   const summaryStat = useSelector(summaryStatus)
-
 
   const depositHistoStatus = useSelector(depHistoStatus)
   const withdrawHistoStatus = useSelector(withdrHistoStatus)
@@ -34,9 +36,8 @@ function App() {
 };
 
   useEffect(() => {
-    if(batchStatus === "idle"){
-        dispatch(loadAllBatchTx())
-
+    if(recBatchStatus === "idle"){
+        dispatch(loadRecentBatchTx())
     }
     if(txStatus === "idle"){
         dispatch(loadAllTx())
@@ -50,8 +51,42 @@ function App() {
     if(withdrawHistoStatus === "idle"){
       dispatch(loadHistogramWithdraw())
     }
+    if(batchStatus === "idle"){
+      dispatch(loadAllBatchTx())
+    }
     
-  }, [batchStatus,txStatus,summaryStat,depositHistoStatus,withdrawHistoStatus,dispatch])
+  }, [recBatchStatus, batchStatus,txStatus,summaryStat,depositHistoStatus,withdrawHistoStatus,dispatch])
+
+  useEffect(() => {
+    let isMounted = true
+
+    const interval = setInterval(() => {
+      if (isMounted === true) {
+        if(recBatchStatus === "fulfilled" || recBatchStatus === "rejected"){
+          dispatch(loadRecentBatchTx())
+        }
+        if(txStatus === "fulfilled" || txStatus === "rejected"){
+            dispatch(loadAllTx())
+        }
+        if(summaryStat === "fulfilled" || summaryStat === "rejected"){
+          dispatch(loadSummary())
+        }
+        if(depositHistoStatus === "fulfilled" || depositHistoStatus === "rejected"){
+          dispatch(loadHistogramDeposit())
+        }
+        if(withdrawHistoStatus === "fulfilled" || withdrawHistoStatus === "rejected"){
+          dispatch(loadHistogramWithdraw())
+      }
+      if(batchStatus === "fulfilled" || batchStatus === "rejected"){
+        dispatch(loadAllBatchTx())
+      }
+      }
+    }, 120000)
+    return () => {
+      isMounted = false
+      clearInterval(interval)
+    }
+  },[recBatchStatus, batchStatus,txStatus,summaryStat,depositHistoStatus,withdrawHistoStatus,dispatch])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -79,13 +114,13 @@ function App() {
             <Route path = {routes.terms} component = {TermsConditions} />
 
             <Route exact path = {routes.app} render = {(props) => 
-              <Home {...props} txData = {txData} batchData = {batchTxData}
-                batchStatus = {batchStatus} txStatus = {txStatus} 
+              <Home {...props} txData = {txData} recBatchData = {recBatchData}
+                recBatchStatus = {recBatchStatus} txStatus = {txStatus} 
                 summaryData = {summaryData} summaryStatus = {summaryStat}/>} />
 
             <Redirect from = "*" to = {routes.app} render = {(props) => 
-              <Home {...props} txData = {txData} batchData = {batchTxData}
-                batchStatus = {batchStatus} txStatus = {txStatus} 
+              <Home {...props} txData = {txData} recBatchData = {recBatchData}
+                recBatchStatus = {recBatchStatus} txStatus = {txStatus} 
                 summaryData = {summaryData} summaryStatus = {summaryStat}/>}/>
             <Route component = {Home} />
             {/* <div><h1 className='coming-soon'> Coming soon ... </h1></div> */}

@@ -22,6 +22,43 @@ exports.create = (req, res) => {
 //     });
 // };
 
+exports.findRecent = async (req, res) => {
+  
+  var today = new Date(Date.now()).toISOString();
+  // the date today
+
+  today = today.slice(0,10);
+  // the date in format : YYYY-MM-DD
+
+  var todayUnix = new Date(today).getTime();
+
+  var daysAgo6 = todayUnix - (86400000*6);
+
+  daysAgo6 = new Date(daysAgo6);
+
+  const pipeline = [
+    {
+      '$match': {
+        'finalized_at': {
+          $gt : daysAgo6
+        }
+      }
+    }
+  ]
+
+  await BatchTransfer.aggregate(pipeline)
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => {
+        res.status(500).send({
+        message:
+            err.message || "error occurred while finding Transaction"
+        });
+    });
+
+};
+
 exports.findAll = async (req, res) => {
 
   await BatchTransfer.find()
@@ -37,7 +74,7 @@ exports.findAll = async (req, res) => {
 
 };
 
-exports.findByBatchID = (req,res) => {
+exports.findByBatchID = async (req,res) => {
   
   const id = req.params.id;
   
@@ -78,7 +115,7 @@ exports.findByBatchID = (req,res) => {
     }
   ]
 
-  BatchTransfer.aggregate(pipeline)
+  await BatchTransfer.aggregate(pipeline)
     .then(data => {
       res.json(data)
     })

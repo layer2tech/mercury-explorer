@@ -19,6 +19,9 @@ export interface DataValue {
     batch_tx: BatchTxArray
     sorted_batch_tx: any
     batch_status: string
+    batch_tx_recent: BatchTxArray
+    sorted_batch_tx_recent: any
+    batch_status_recent: string
     address_list: any
     address_data: any
     address_status: string
@@ -48,6 +51,9 @@ const initialState: DataValue = {
     batch_tx: [],
     sorted_batch_tx: [],
     batch_status: "idle",
+    batch_tx_recent: [],
+    sorted_batch_tx_recent: [],
+    batch_status_recent: "idle",
     address_list: [],
     address_data: [],
     address_status: "idle",
@@ -78,6 +84,12 @@ export const batchByDateSelector = (state: RootState) => state.data.sorted_batch
 
 export const allBatchStatus = (state: RootState) => state.data.batch_status
 
+export const recentBatchSelector = (state: RootState) => state.data.batch_tx_recent
+
+export const batchByDateRecentSelector = (state: RootState) => state.data.sorted_batch_tx_recent
+
+export const recentBatchStatus = (state: RootState) => state.data.batch_status_recent
+
 export const allTxSelector = (state: RootState) => state.data.tx
 
 export const allTxStatus = (state: RootState) => state.data.tx_status
@@ -92,6 +104,7 @@ export const loadSummary = createAsyncThunk('data/loadSummary', async () => {
 
 export const loadHistogramDeposit = createAsyncThunk('data/loadHistogramDeposit', async () => {
     const response = await axios.get(`${REACT_APP_API}/api/histo/deposit`)
+
     return response.data
 })
 
@@ -111,9 +124,21 @@ export const loadAllBatchTx = createAsyncThunk('data/loadAllBatchTx', async () =
     return data
 })
 
-export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
-    const response = await axios.get(`${REACT_APP_API}/api/tx`)
+export const loadRecentBatchTx = createAsyncThunk('data/loadRecentBatchTx', async () => {
+    const response = await axios.get(`${REACT_APP_API}/api/swap/recent`)
 
+    let data: BatchTxArray = response.data.sort((a: any ,b: any) => {
+        let aTime = new Date(a.finalized_at).getTime()
+        let bTime = new Date(b.finalized_at).getTime()
+        return bTime - aTime
+    })
+
+    return data
+})
+
+export const loadAllTx = createAsyncThunk('data/loadAllTx', async () => {
+    
+    const response = await axios.get(`${REACT_APP_API}/api/tx`)
 
     let data = response.data.sort((a: any ,b: any) => {
         let aTime = new Date(a.inserted_at).getTime()
@@ -259,6 +284,34 @@ export const dataSlice = createSlice({
             })
             .addCase(loadAllBatchTx.rejected, (state,action) => {
                 state.batch_status = "rejected"
+            })
+            .addCase(loadRecentBatchTx.fulfilled, (state,action) => {
+                state.batch_tx_recent = action.payload
+
+                let dates:any[] = []
+                let sortedBatchTx: any[] = []
+
+                state.batch_tx_recent.map((tx: BatchTx) => {
+                    let date = tx.finalized_at.slice(0,10)
+                    if(!dates.includes(date)){
+                        dates.push(date)
+                    }
+                })
+                dates.map(( date: string ) => {
+                    let countArray = state.batch_tx_recent.filter( ( tx:any ) => tx.finalized_at.slice(0,10) === date)
+                    sortedBatchTx.push({
+                        date: date,
+                        date_data: countArray
+                    })
+                })
+                state.sorted_batch_tx_recent = sortedBatchTx
+                state.batch_status_recent = "fulfilled"
+            })
+            .addCase(loadRecentBatchTx.pending, (state,action) => {
+                state.batch_status_recent = "pending"
+            })
+            .addCase(loadRecentBatchTx.rejected, (state,action) => {
+                state.batch_status_recent = "rejected"
             })
             .addCase(loadAllTx.fulfilled, (state,action) => {
                 state.tx = action.payload
