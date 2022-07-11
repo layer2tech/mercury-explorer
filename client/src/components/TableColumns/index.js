@@ -100,7 +100,7 @@ const TableColumns = (props) => {
                     </tbody>
                 </table>
                 {(props.title === "Batch Transfers" || props.title === "Transactions") && 
-                    props.data.length > 5 &&
+                    props.data.length > 3 &&
                     !window.location.href.includes("swap") &&
                     !window.location.href.includes("tx")?
                 (<div className = "see-more">
