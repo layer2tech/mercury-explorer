@@ -84,13 +84,23 @@ const TableColumns = (props) => {
                     ):(                        
                         <tr key={item.date}>
                             <td>
-                                <Link 
-                                    className = "link"
-                                    to = {`/date/${item.date}`}
-                                    title = {item.date}
-                                    >
-                                    {item.date}
-                                </Link>
+                                {item.date_data.length === 0 ? (
+                                
+                                    <a className = "link"
+                                        title = {item.date} >
+                                        {item.date}
+                                    </a>
+
+                                ) : (
+                                    <Link 
+                                        className = "link"
+                                        to = {`/date/${item.date}`}
+                                        title = {item.date}
+                                        >
+                                        {item.date}
+                                    </Link>
+                                )}
+                                
                             </td>
                             <td>
                                 {item.date_data.length}

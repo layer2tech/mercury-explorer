@@ -7,6 +7,28 @@ const { REACT_APP_API } = process.env;
 
 type BatchTxArray = BatchTx[];
 
+function pastSixDays(){
+    // takes a chronologically sorted date array and fills in missing days
+    var newDateArray = [];
+
+    var currDate = new Date(Date.now()).toISOString()
+    var today
+
+    for(let i = 0; i < 6 ; i++){
+        currDate = new Date(Date.now() - i*(8.6E7)).toISOString();
+
+        today = currDate;
+
+        today = today.slice(0,10);
+
+        newDateArray.push(today);
+
+    }
+
+    return newDateArray
+
+}
+
 export interface DataValue {
     summary: any
     summary_status: string
@@ -291,12 +313,8 @@ export const dataSlice = createSlice({
                 let dates:any[] = []
                 let sortedBatchTx: any[] = []
 
-                state.batch_tx_recent.map((tx: BatchTx) => {
-                    let date = tx.finalized_at.slice(0,10)
-                    if(!dates.includes(date)){
-                        dates.push(date)
-                    }
-                })
+                dates = pastSixDays();
+
                 dates.map(( date: string ) => {
                     let countArray = state.batch_tx_recent.filter( ( tx:any ) => tx.finalized_at.slice(0,10) === date)
                     sortedBatchTx.push({
