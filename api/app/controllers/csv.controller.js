@@ -18,6 +18,43 @@ const csvHistogram = createCsvWriter({
   append: true
 })
 
+function updateCSV(data, today, res) {
+
+  fs.readFile('./data.csv', 'utf8', (err,file) => {
+    if(err){
+      console.error(err);
+      return
+    }
+    
+    file = file.split('\n');
+    file.splice(1,1);
+
+    var fileString = "";
+
+    file.map(item => {
+      if(item !== ""){
+        fileString += item + '\n'
+      }
+    })
+
+    fs.writeFile('./data.csv', fileString, err => {
+      if (err) {
+        console.error(err);
+      }
+      // file written successfully
+      csvSummary.writeRecords([Object.values(data[0])]).then(
+        item =>{
+          res.download('./data.csv', function(error){
+            if(error) console.log("Error : ", error)
+          })
+        }
+      ).catch(err => {console.log("ERROR", err)})
+    });
+    
+  })
+            
+}
+
 
 exports.getSummary = (req,res) => {
 
@@ -36,6 +73,91 @@ exports.getSummary = (req,res) => {
     // the date in format : YYYY-MM-DD
 
     let todayUnix = new Date(today).getTime();
+
+    const checkPipeline = [
+      [
+        {
+          '$group': {
+            '_id': 1, 
+            'total_deposit': {
+              '$sum': '$amount'
+            }, 
+            'deposited_coins': {
+              '$sum': 1
+            }
+          }
+        }, {
+          '$lookup': {
+            'from': 'transactions', 
+            'localField': 'string', 
+            'foreignField': 'string', 
+            'as': 'transactions'
+          }
+        }, {
+          '$unwind': '$transactions'
+        }, {
+          '$match': {
+            'transactions.event': 'WITHDRAWAL'
+          }
+        }, {
+          '$group': {
+            '_id': 1, 
+            'total_deposit': {
+              '$first': '$total_deposit'
+            }, 
+            'deposited_coins': {
+              '$first': '$deposited_coins'
+            }, 
+            'total_withdrawn': {
+              '$sum': '$transactions.amount'
+            }, 
+            'withdrawn_coins': {
+              '$sum': 1
+            }
+          }
+        }, {
+          '$lookup': {
+            'from': 'batchtransfers', 
+            'localField': 'string', 
+            'foreignField': 'string', 
+            'as': 'batchtransfers'
+          }
+        }, {
+          '$project': {
+            'liquidity': {
+              '$subtract': [
+                '$deposited_coins', '$withdrawn_coins'
+              ]
+            }, 
+            'capacity_statechains': {
+              '$subtract': [
+                '$total_deposit', '$total_withdrawn'
+              ]
+            }, 
+            'statecoins': '$deposited_coins'
+          }
+        }, {
+          '$group': {
+            '_id': '$_id', 
+            'swaps_per_day': {
+              '$first': '$swaps_per_day'
+            }, 
+            'capacity_statechains': {
+              '$first': '$capacity_statechains'
+            }, 
+            'statecoins': {
+              '$first': '$statecoins'
+            }, 
+            'liquidity': {
+              '$first': '$liquidity'
+            }, 
+            'swapset_per_day': {
+              '$first': '$swaps_per_day'
+            }
+          }
+        }
+      ]
+    ]
 
     const pipeline = [
       {
@@ -144,9 +266,6 @@ exports.getSummary = (req,res) => {
           'liquidity': {
             '$first': '$liquidity'
           }
-          // 'tx_pastday': {
-          //   '$sum': 1
-          // }
           }        
         }, {
           '$lookup': {
@@ -209,56 +328,49 @@ exports.getSummary = (req,res) => {
 
     }
     else{
+
       console.log('From DB Summary')
 
+      
       Transaction.aggregate(pipeline)
         .then(data => {
-          if(data.length>0){
+          if(data.length > 0){
             console.log("data collected from db summary")
             data[0].updated = new Date(today);
             // data[0].updated = new Date()
             delete data[0]["_id"]
-  
+          
             summaryVar = data;
-
-            fs.readFile('./data.csv', 'utf8', (err,file) => {
-              if(err){
-                console.error(err);
-                return
-              }
-              
-              file = file.split('\n');
-              file.splice(1,1);
-
-              var fileString = "";
-
-              file.map(item => {
-                if(item !== ""){
-                  fileString += item + '\n'
-                }
-              })
-
-              fs.writeFile('./data.csv', fileString, err => {
-                if (err) {
-                  console.error(err);
-                }
-                // file written successfully
-                csvSummary.writeRecords([Object.values(data[0])]).then(
-                  item =>{
-                    res.download('./data.csv', function(error){
-                      if(error) console.log("Error : ", error)
-                    })
-                  }
-                ).catch(err => {console.log("ERROR", err)})
-              });
-              
-            })
-            
+            updateCSV(data, today, res)
           }
           else{
-            res.download('./data.csv', function(error){
-              if(error) console.log("Error : ", error)
-            })
+            Transaction.aggregate(checkPipeline)
+              .then(data => {
+                if(data.length > 0){
+                  for (var key in data[0]) {
+                    if( data[0][key] == null ){
+                        data[0][key] = 0
+                    }             
+                  }
+                  console.log("data collected from db summary")
+                  data[0].updated = new Date(today);
+                  // data[0].updated = new Date()
+                  delete data[0]["_id"]
+                
+                  summaryVar = data;
+                  updateCSV(data, today, res)
+                } else{
+                  res.download('./data.csv', function(error){
+                  if(error) console.log("Error : ", error)
+                  })
+                }
+              })
+              .catch( err => {
+                res.status(500).send({
+                  message:
+                      err.message || "error occurred while finding Summary"
+                  });
+              })
           }
         })
         .catch(err => {
@@ -267,6 +379,7 @@ exports.getSummary = (req,res) => {
                 err.message || "error occurred while finding Summary"
             });
         });
+
     }
   }
 
