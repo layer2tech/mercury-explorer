@@ -15,5 +15,9 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+RUN node -e 'require("./getCSVs").init("https://api.mercurywallet.com/summary")'
+RUN node -e 'require("./getCSVs").init("https://api.mercurywallet.com/histogram")'
+
 EXPOSE 3000
 CMD [ "node", "server.js" ]
+
