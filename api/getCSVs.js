@@ -47,10 +47,10 @@ function hitAPIandSave(url) {
       //save the file to the home directory
       if(url.includes('summary')){
         fs.writeFileSync('data.csv', newData);
-        console.log('success!: ', newData);
+        console.log(new Date(), 'Success!! data.csv added to mercury-explorer/api');
       } if (url.includes('histogram')){
         fs.writeFileSync('histogram.csv', newData);
-        console.log('success!: ', newData);
+        console.log(new Date(), 'Success!! histogram.csv added to mercury-explorer/api');
       }
     }).catch(err => {
       console.error(err);
