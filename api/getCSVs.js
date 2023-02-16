@@ -47,8 +47,10 @@ function hitAPIandSave(url) {
       //save the file to the home directory
       if(url.includes('summary')){
         fs.writeFileSync('data.csv', newData);
+        console.log('success!: ', newData);
       } if (url.includes('histogram')){
         fs.writeFileSync('histogram.csv', newData);
+        console.log('success!: ', newData);
       }
     }).catch(err => {
       console.error(err);
